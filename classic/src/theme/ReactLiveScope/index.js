@@ -1,5 +1,5 @@
 import React from "react";
-import { Rect, SVG } from "@bluefish-js/core";
+import { Rect, SVG, Align, Text, Ref, Group } from "@bluefish-js/core";
 
 const ExampleComponent = (props) => (
   <SVG width={1000} height={1000}>
@@ -13,5 +13,9 @@ const ReactLiveScope = {
   ...React,
   Rect,
   SVG,
+  Align,
+  Text,
+  Ref,
+  Group,
 };
 export default ReactLiveScope;
