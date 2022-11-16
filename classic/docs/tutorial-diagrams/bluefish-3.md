@@ -223,9 +223,10 @@ render(
 
 ## Customizing the Layout
 
-Since layouts are just components, we can let users customize them as well! However, rather than
-letting users provide arbitrary components as above, we'll restrict them to a specific subset of
-layouts we've chosen.
+Since layouts are just components, we can let users customize them as well! Just as above, we'll
+write some thin wrappers around existing components (this time they're layout components). Notice
+that we don't have to restrict users to this set! They can pass in their own as long as they conform
+to the internal specification.
 
 ```tsx live noInline
 const MyConnector = forwardRef(function _MyConnector(props, ref) {
