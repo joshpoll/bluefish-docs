@@ -156,6 +156,15 @@ This is a bug.
 
 ## Creating a Reusable Bluefish Component
 
+:::danger
+
+Currently in Bluefish, all names exist in a shared *global* namespace. Names like `value`,
+`background`, and `label` from different instances of `Node` components will clash with each other!
+
+To avoid name clashes, consider using some sort of unique id, e.g. the `uuid` package.
+
+:::
+
 ```tsx live noInline
 const Node = forwardRef(function _Node({ name, value }, ref) {
   return (

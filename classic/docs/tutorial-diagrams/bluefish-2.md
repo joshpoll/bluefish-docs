@@ -4,7 +4,13 @@ sidebar_position: 2
 
 # 2. A Tree Diagram Component
 
+In this section, we'll take the node component we built in the previous section and use it to build
+a larger tree diagram component.
+
 ## 2-Level Tree
+
+Let's start by just rendering everything out. We'll make a new group which contains the root node as
+well as a `Row` of subtrees. For now, we'll assume each subtree is just a single node.
 
 ```tsx live noInline
 const Tree = forwardRef(function _Tree({ data }, ref) {
@@ -42,6 +48,9 @@ render(
 ```
 
 ## Positioning Subtrees Relative to the Root
+
+We'd like to position these subtrees below the root. So we can use a `Col` component and `Ref`s to
+position these elements.
 
 ```tsx live noInline
 const Tree = forwardRef(function _Tree({ data }, ref) {
@@ -85,6 +94,18 @@ render(
 ```
 
 ## Now Let's Generalize to Arbitrary Depth!
+
+Now, by replacing `Node` with a recursive call to `Tree`, we can generalize our component to trees
+of any depth!
+
+:::caution
+
+Naming our internal function `_Tree` and not `Tree` is important here, because otherwise the
+recursive call will refer to the internal `Tree` rather than the external one.
+
+Try renaming it and you'll see an error!
+
+:::
 
 ```tsx live noInline
 const Tree = forwardRef(function _Tree({ data }, ref) {
@@ -136,6 +157,12 @@ render(
 ```
 
 ## Adding Connectors
+
+Now that we've placed the nodes, it's time to place some connectors!
+
+For every subtree, we want to make a `Connector` component linking the parent node to the subtree's
+root node. To do this we'll `map` over the `subtrees` array and use `child.name` to grab the
+reference to the child.
 
 ```tsx live noInline
 const Tree = forwardRef(function _Tree({ data }, ref) {
@@ -190,3 +217,4 @@ render(
     }} />
   </SVG>
 )
+```
