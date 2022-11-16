@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkclassic=self.webpackChunkclassic||[]).push([[6550],{5106:s=>{s.exports=JSON.parse('{"label":"docusaurus","permalink":"/bluefish-docs/blog/tags/docusaurus","allTagsPath":"/bluefish-docs/blog/tags","count":4}')}}]);
