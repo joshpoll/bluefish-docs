@@ -1,8 +1,8 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
-# Get Started - Diagramming
+# 1. Your First Bluefish Component
 
 :::tip
 
@@ -20,6 +20,7 @@ In the process you will learn how to
 - use `name` to tag components
 - use `Align`, `Col`, and `Row`
 - use `Ref` to refer to components in different parts of the component tree
+- create your own Bluefish component
 - gradually abstract a component so users can customize it more easily
 
 
