@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Bluefish',
-  tagline: 'Create beautiful, customizable charts and diagrams with accessibility built in.',
+  tagline: 'Create beautiful, customizable charts and diagrams in React.',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
