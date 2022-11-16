@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkclassic=self.webpackChunkclassic||[]).push([[9813],{1436:s=>{s.exports=JSON.parse('{"label":"facebook","permalink":"/bluefish-docs/blog/tags/facebook","allTagsPath":"/bluefish-docs/blog/tags","count":1}')}}]);
