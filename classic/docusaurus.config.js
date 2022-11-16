@@ -12,7 +12,7 @@ const config = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/bluefish.ico',
   themes: ['@docusaurus/theme-live-codeblock'],
 
   // GitHub pages deployment config.
