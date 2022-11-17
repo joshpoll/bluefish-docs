@@ -10,32 +10,32 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: 'Overlapping Layout',
+    Svg: require('@site/static/img/bluefish logo transparent - no bubbles.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Break free from the tree hierarchy! Bluefish lets you write components that belong to multiple layouts.
+        Easily create labels, highlights, and other annotations. Specify x and y layouts separately.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: 'Reactive Layout',
+    Svg: require('@site/static/img/bluefish logo transparent - no bubbles.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Bluefish layouts are reactive. They automatically update when the data changes or the view is resized.
+        Push view size constraints down the layout hierarchy, and push measurements up from the leaves.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: 'Modular Layout',
+    Svg: require('@site/static/img/bluefish logo transparent - no bubbles.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        With Bluefish's modular layout API, it's easy to mix, match, and nest your favorite layout techniques
+        for math notation, pretty printers, labeling, and more.
       </>
     ),
   },
