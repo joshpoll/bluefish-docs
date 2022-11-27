@@ -12,7 +12,77 @@ We can divide the components of this diagram into two groups: the components ass
 
 ## The Global Frame
 
-The Global Frame itself is a composition of various other components.
+The Global Frame itself is a composition of various other components. In particular, the Global Frame contains some text components, some variables, and some components responsible for the styling if the output.
+
+### The Variable Sub-Component
+
+First, let's construct a component for the variable label and value pairs at the right edge of the global frame. We will call this component `Variable`. The `Variable` component requires four pieces of information: the pointer of the object it references (which could be null), the variable name, the variable value, and the variable ID.
+
+```tsx live noInline
+const Variable = forwardRef(function _Variable({ data }, ref) {
+  const { pointObject, name, value, opId } = data;
+
+  // References
+  const textRef = useRef(null);
+  const valueRef = useRef(null);
+  const boxRef = useRef(null);
+  const boxRefBorderLeft = useRef(null);
+  const boxRefBorderBottom = useRef(null);
+  const variableRef = useRef(null);
+
+  // Declares font used in Python Tutor Diagrams
+  const fontFamily = 'verdana, arial, helvetica, sans-serif';
+
+  return (
+    <Group ref={ref} name={opId}>
+    
+        // Creates frame of Variable component (text label & box for value)
+        <Space name={variableRef} horizontally by={5}>
+            <Text ref={textRef} contents={name} fontSize={'24px'} fontFamily={fontFamily} fill={'black'} />
+            <Rect ref={boxRef} height={40} width={40} fill={'#e2ebf6'} />
+        </Space>
+
+        // Creates left and bottom edge borders
+        <Rect ref={boxRefBorderLeft} height={40} width={2} fill={'#a6b3b6'} />
+        <Rect ref={boxRefBorderBottom} height={2} width={40} fill={'#a6b3b6'} />
+
+        // Creates text labels of variable
+        <Text
+            ref={valueRef}
+            contents={value}
+            fontFamily={fontFamily}
+            fontSize={'24px'}
+            fill={'black'}
+        />
+
+        // Align text and border components to variable frame
+        <Align bottomCenter>
+            <Ref to={boxRefBorderBottom} />
+            <Ref to={boxRef} />
+        </Align>
+        <Align centerLeft>
+            <Ref to={boxRefBorderLeft} />
+            <Ref to={boxRef} />
+        </Align>
+        <Align topCenter>
+            <Ref to={valueRef} />
+            <Ref to={boxRef} />
+        </Align>
+    </Group>
+  )
+})
+
+render(
+    <SVG width={300} height={50}>
+        <Variable data={{ pointObject: null, name: 'x', value: '5', opId: 'v3' }} />
+    </SVG>
+)
+```
+
+### Constructing the Global Frame
+
+Now, we are ready to put together the global frame component.
+
 
 ## The Objects
 
