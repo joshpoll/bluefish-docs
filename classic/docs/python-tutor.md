@@ -93,7 +93,7 @@ const GlobalFrame = forwardRef(function _GlobalFrame({ variables, opId }, ref) {
   const frameBorder = useRef(null);
 
   // Font declaration
-  const fontFamily = 'Andale mono, monospace';
+  const fontFamily = 'Andale mono, monospace'; 
 
   return (
     <Group ref={ref} name={opId}>
@@ -103,24 +103,28 @@ const GlobalFrame = forwardRef(function _GlobalFrame({ variables, opId }, ref) {
       <Rect ref={frameBorder} height={300} width={5} fill={'#a6b3b6'} />
       <Text ref={opIdLabel} contents={'Global Frame'} fontSize={'24px'} fontFamily={fontFamily} fill={'black'} />
 
-      // Variable components
+      // Vertical Alignment for Variable components
       <Space name={`frameVariables`} ref={frameVariables} vertically by={10}>
         {variables.map((variable) => (
           <Variable data={variable} />
         ))}
       </Space>
 
-      // Alignment
+      // Horizontal Alignment for Variable Components
+      {variables.map((variable) => (
+        <Align right to={'centerRight'}>
+          <Ref to={variable.opId} />
+          <Ref to={frame} />
+        </Align>
+      ))}
+
+      // Alignment for border and label
       <Align centerLeft>
         <Ref to={frameBorder} />
         <Ref to={frame} />
       </Align>
       <Align topCenter>
         <Ref to={opIdLabel} />
-        <Ref to={frame} />
-      </Align>
-      <Align centerRight to={'centerRight'}>
-        <Ref to={frameVariables} />
         <Ref to={frame} />
       </Align>
     </Group>
@@ -132,9 +136,9 @@ render(
     <SVG width={500} height={300}>
         <GlobalFrame
             variables={[
-            { pointObject: { opId: 'list1' }, name: 'c', opId: 'c' },
-            { pointObject: { opId: 'list2' }, name: 'd', opId: 'd' },
-            { pointObject: { opId: 'list3' }, name: 'x', value: '5', opId: 'x' },
+            { pointObject: { opId: 'list1' }, name: 'c', opId: 'cID' },
+            { pointObject: { opId: 'list2' }, name: 'd', opId: 'dID' },
+            { pointObject: { opId: 'list3' }, name: 'x', value: '5', opId: 'xID' },
             ]}
             opId={'globalFrame'}
       />
