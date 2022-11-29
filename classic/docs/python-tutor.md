@@ -146,23 +146,23 @@ const GlobalFrame = forwardRef(function _GlobalFrame({ variables, opId }, ref) {
 
   return (
     <Group ref={ref} name={opId}>
-      <Rect ref={frame} height={250} width={200} fill={'#e2ebf6'} />
-      <Rect ref={frameBorder} height={250} width={5} fill={'#a6b3b6'} />
+      <Rect ref={frame} height={300} width={200} fill={'#e2ebf6'} />
+      <Rect ref={frameBorder} height={300} width={5} fill={'#a6b3b6'} />
       <Text ref={opIdLabel} contents={'Global Frame'} fontSize={'24px'} fontFamily={fontFamily} fill={'black'} />
       <Space name={`frameVariables`} ref={frameVariables} vertically by={10}>
         {variables.map((variable) => (
           <Variable data={variable} />
         ))}
       </Space>
-      <Align left to={'centerLeft'}>
-        <Ref to={frame} />
+      <Align centerLeft>
         <Ref to={frameBorder} />
-      </Align>
-      <Align top to={'topCenter'}>
         <Ref to={frame} />
-        <Ref to={opIdLabel} />
       </Align>
-      <Align right to={'centerRight'}>
+      <Align topCenter>
+        <Ref to={opIdLabel} />
+        <Ref to={frame} />
+      </Align>
+      <Align centerRight to={'centerRight'}>
         <Ref to={frameVariables} />
         <Ref to={frame} />
       </Align>
@@ -174,9 +174,9 @@ render(
     <SVG width={500} height={300}>
         <GlobalFrame
             variables={[
-            { pointObject: { opId: 'list1' }, value: 'c', opId: 'c' },
-            { pointObject: { opId: 'list2' }, value: 'd', opId: 'd' },
-            { pointObject: { opId: 'list3' }, value: 'x', opId: 'x' },
+            { pointObject: { opId: 'list1' }, name: 'c', opId: 'c' },
+            { pointObject: { opId: 'list2' }, name: 'd', opId: 'd' },
+            { pointObject: { opId: 'list3' }, name: 'x', value: '5', opId: 'x' },
             ]}
             opId={'globalFrame'}
       />
