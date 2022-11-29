@@ -85,22 +85,32 @@ Now, we are ready to put together the global frame component. The Bluefish compo
 
 ```tsx live noInline
 const GlobalFrame = forwardRef(function _GlobalFrame({ variables, opId }, ref) {
+
+  // References
   const frame = useRef(null);
   const opIdLabel = useRef(null);
   const frameVariables = useRef(null);
   const frameBorder = useRef(null);
+
+  // Font declaration
   const fontFamily = 'Andale mono, monospace';
 
   return (
     <Group ref={ref} name={opId}>
+
+      // Global Frame and relevant text
       <Rect ref={frame} height={300} width={200} fill={'#e2ebf6'} />
       <Rect ref={frameBorder} height={300} width={5} fill={'#a6b3b6'} />
       <Text ref={opIdLabel} contents={'Global Frame'} fontSize={'24px'} fontFamily={fontFamily} fill={'black'} />
+
+      // Variable components
       <Space name={`frameVariables`} ref={frameVariables} vertically by={10}>
         {variables.map((variable) => (
           <Variable data={variable} />
         ))}
       </Space>
+
+      // Alignment
       <Align centerLeft>
         <Ref to={frameBorder} />
         <Ref to={frame} />
@@ -118,8 +128,8 @@ const GlobalFrame = forwardRef(function _GlobalFrame({ variables, opId }, ref) {
 })
 
 render(
+    // Try adding more data or changing the data here!
     <SVG width={500} height={300}>
-        <Variable data={{ pointObject: null, name: 'x', value: '5', opId: 'v3' }} />
         <GlobalFrame
             variables={[
             { pointObject: { opId: 'list1' }, name: 'c', opId: 'c' },
@@ -132,10 +142,12 @@ render(
 )
 
 ```
-
+And with that, our global frame is complete! Let's now create the other part of our Python Tutor diagram: the objects that our global frame variables reference.
 
 ## The Objects
 
-In the Python Tutor diagram, the objects are represented as rectangles with a value and pointer to the next object in the sequence. 
+In the Python Tutor diagram, the objects that the global frame variables reference are represented as rectangles with a value and pointer to the next object in the sequence. 
 
 ## Putting The Diagram Together
+
+Now that we've created the two halves of our Python Tutor diagram, let's compose them together and add links between the global frame variables and the objects to complete our visualization!
