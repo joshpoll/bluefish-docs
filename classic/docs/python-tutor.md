@@ -84,59 +84,6 @@ render(
 Now, we are ready to put together the global frame component. The Bluefish component takes a list of Variables as input and generates the global frame with the appropriate text, styling, and variable label and value components.
 
 ```tsx live noInline
-const Variable = forwardRef(function _Variable({ data }, ref) {
-  const { pointObject, name, value, opId } = data;
-
-  // References
-  const textRef = useRef(null);
-  const valueRef = useRef(null);
-  const boxRef = useRef(null);
-  const boxRefBorderLeft = useRef(null);
-  const boxRefBorderBottom = useRef(null);
-  const variableRef = useRef(null);
-
-  // Declares font used in Python Tutor Diagrams
-  const fontFamily = 'verdana, arial, helvetica, sans-serif';
-
-  return (
-    <Group ref={ref} name={opId}>
-    
-        // Creates frame of Variable component (text label & box for value)
-        <Space name={variableRef} horizontally by={5}>
-            <Text ref={textRef} contents={name} fontSize={'24px'} fontFamily={fontFamily} fill={'black'} />
-            <Rect ref={boxRef} height={40} width={40} fill={'#e2ebf6'} />
-        </Space>
-
-        // Creates left and bottom edge borders
-        <Rect ref={boxRefBorderLeft} height={40} width={2} fill={'#a6b3b6'} />
-        <Rect ref={boxRefBorderBottom} height={2} width={40} fill={'#a6b3b6'} />
-
-        // Creates text labels of variable
-        <Text
-            ref={valueRef}
-            contents={value}
-            fontFamily={fontFamily}
-            fontSize={'24px'}
-            fill={'black'}
-        />
-
-        // Align text and border components to variable frame
-        <Align bottomCenter>
-            <Ref to={boxRefBorderBottom} />
-            <Ref to={boxRef} />
-        </Align>
-        <Align centerLeft>
-            <Ref to={boxRefBorderLeft} />
-            <Ref to={boxRef} />
-        </Align>
-        <Align topCenter>
-            <Ref to={valueRef} />
-            <Ref to={boxRef} />
-        </Align>
-    </Group>
-  )
-})
-
 const GlobalFrame = forwardRef(function _GlobalFrame({ variables, opId }, ref) {
   const frame = useRef(null);
   const opIdLabel = useRef(null);
@@ -172,6 +119,7 @@ const GlobalFrame = forwardRef(function _GlobalFrame({ variables, opId }, ref) {
 
 render(
     <SVG width={500} height={300}>
+        <Variable data={{ pointObject: null, name: 'x', value: '5', opId: 'v3' }} />
         <GlobalFrame
             variables={[
             { pointObject: { opId: 'list1' }, name: 'c', opId: 'c' },
@@ -184,7 +132,6 @@ render(
 )
 
 ```
-
 
 
 ## The Objects
