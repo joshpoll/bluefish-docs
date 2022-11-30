@@ -106,9 +106,9 @@ const GlobalFrame = forwardRef(function _GlobalFrame({ variables, opId }, ref) {
       </Align>
       {/* TODO: this Space and Align should be a Col, but Col overwrites *all* placeable positions
             even though opIdLabel has already been placed */}
-      <Space vertically by={10}>
+      <Space vertically by={50}>
         <Ref to={opIdLabel} />
-        <Col name={`frameVariables`} ref={frameVariables} spacing={10} alignment={'right'}>
+        <Col name={`frameVariables`} ref={frameVariables} spacing={20} alignment={'right'}>
           {variables.map((variable) => (
             <Variable data={variable} />
           ))}
@@ -131,8 +131,8 @@ render(
     <SVG width={500} height={300}>
         <GlobalFrame
             variables={[
-            { pointObject: { opId: 'list1' }, name: 'c', opId: 'cID' },
-            { pointObject: { opId: 'list2' }, name: 'd', opId: 'dID' },
+            { pointObject: { opId: 'list1' }, name: 'c', value: null, opId: 'cID' },
+            { pointObject: { opId: 'list2' }, name: 'd', value: null, opId: 'dID' },
             { pointObject: { opId: 'list3' }, name: 'x', value: '5', opId: 'xID' },
             ]}
             opId={'globalFrame'}
