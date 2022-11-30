@@ -85,7 +85,6 @@ Now, we are ready to put together the global frame component. The Bluefish compo
 
 ```tsx live noInline
 const GlobalFrame = forwardRef(function _GlobalFrame({ variables, opId }, ref) {
-
   // References
   const frame = useRef(null);
   const opIdLabel = useRef(null);
@@ -93,43 +92,39 @@ const GlobalFrame = forwardRef(function _GlobalFrame({ variables, opId }, ref) {
   const frameBorder = useRef(null);
 
   // Font declaration
-  const fontFamily = 'Andale mono, monospace'; 
+  const fontFamily = 'Andale mono, monospace';
 
   return (
     <Group ref={ref} name={opId}>
-
-      // Global Frame and relevant text
+      {/* Global Frame and relevant text */}
       <Rect ref={frame} height={300} width={200} fill={'#e2ebf6'} />
       <Rect ref={frameBorder} height={300} width={5} fill={'#a6b3b6'} />
       <Text ref={opIdLabel} contents={'Global Frame'} fontSize={'24px'} fontFamily={fontFamily} fill={'black'} />
-
-      // Vertical Alignment for Variable components
-      <Space name={`frameVariables`} ref={frameVariables} vertically by={10}>
-        {variables.map((variable) => (
-          <Variable data={variable} />
-        ))}
-      </Space>
-
-      // Horizontal Alignment for Variable Components
-      {variables.map((variable) => (
-        <Align right to={'centerRight'}>
-          <Ref to={variable.opId} />
-          <Ref to={frame} />
-        </Align>
-      ))}
-
-      // Alignment for border and label
-      <Align centerLeft>
-        <Ref to={frameBorder} />
-        <Ref to={frame} />
-      </Align>
       <Align topCenter>
         <Ref to={opIdLabel} />
         <Ref to={frame} />
       </Align>
+      {/* TODO: this Space and Align should be a Col, but Col overwrites *all* placeable positions
+            even though opIdLabel has already been placed */}
+      <Space vertically by={10}>
+        <Ref to={opIdLabel} />
+        <Col name={`frameVariables`} ref={frameVariables} spacing={10} alignment={'right'}>
+          {variables.map((variable) => (
+            <Variable data={variable} />
+          ))}
+        </Col>
+      </Space>
+      <Align right>
+        <Ref to={frameVariables} />
+        <Ref to={opIdLabel} />
+      </Align>
+      <Align centerLeft>
+        <Ref to={frameBorder} />
+        <Ref to={frame} />
+      </Align>
     </Group>
-  )
-})
+  );
+});
 
 render(
     // Try adding more data or changing the data here!
