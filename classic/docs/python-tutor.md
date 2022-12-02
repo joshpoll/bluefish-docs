@@ -202,9 +202,15 @@ render(
 )
 ```
 
-We can imagine that the objects are located in a grid, and we can specify the contents of each grid with the ``Row`` and ``Col`` components.
+We can imagine that the objects are located in a grid, and we can specify the contents of each grid with the ``Row`` and ``Col`` components. Therefore, our set of Objects is essentially a matrix.
 
 ```tsx live noInline
+const ObjectsMatrix = forwardRef(function _ObjectsMatrix({objects}, ref) {
+
+  return (
+
+  )
+});
 
 ```
 
