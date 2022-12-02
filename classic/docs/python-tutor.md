@@ -145,7 +145,66 @@ And with that, our global frame is complete! Let's now create the other part of 
 
 ## The Objects
 
-In the Python Tutor diagram, the objects that the global frame variables reference are represented as rectangles with a value and pointer to the next object in the sequence. 
+In the Python Tutor diagram, the objects that the global frame variables reference are represented as rectangles with a value and pointer to the next object in the sequence. First, let's create a subcomponent to represent the objects.
+
+```tsx live noInline
+const Objects = forwardRef(function _Objects({nextObject, objectType, value, opId}, ref) {
+  const itemRef = useRef(null);
+  const boxRef = useRef(null);
+  const valueRef = useRef(null);
+  const labelRef = useRef(null);
+  const zeroRef = useRef(null);
+  const oneRef = useRef(null);
+  const elemRef = useRef(null);
+
+  const fontFamily = 'verdana, arial, helvetica, sans-serif';
+
+  return (
+    <Group ref={ref} name={opId}>
+      <Text ref={labelRef} contents={objectType} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
+
+      {/* separate names for each rectangle so that the arrow can go from the center of pointer to the center left of pointed */}
+      <Group ref={elemRef}>
+        <Rect ref={boxRef} name={`pointer${opId}`} height={60} width={80} fill={'#ffffc6'} stroke={'grey'} />
+        <Rect ref={itemRef} name={`pointed${opId}`} height={60} width={80} fill={'#ffffc6'} stroke={'grey'} />
+        <Text ref={valueRef} contents={value} fontSize={'24px'} fill={'black'} />
+        <Text ref={zeroRef} contents={'0'} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
+        <Text ref={oneRef} contents={'1'} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
+
+        <Align center>
+          <Ref to={valueRef} />
+          <Ref to={itemRef} />
+        </Align>
+
+        <Align left to={'centerRight'}>
+          <Ref to={boxRef} />
+          <Ref to={itemRef} />
+        </Align>
+
+        <Align topLeft>
+          <Ref to={oneRef} />
+          <Ref to={boxRef} />
+        </Align>
+      </Group>
+
+      <Space vertically by={10}>
+        <Ref to={labelRef} />
+        <Ref to={elemRef} />
+      </Space>
+    </Group>
+  );
+});
+
+render(
+    <SVG width={500} height={300}>
+      <Objects nextObject={{ opId: 'object2' }} objectType={'tuple'} value={'1'} opId={'object1'} />
+    </SVG>
+)
+
+```
+
+We can imagine that the objects are located in a grid, and we can specify the contents of each grid with the ``Row`` and ``Col`` components.
+
 
 ## Putting The Diagram Together
 
