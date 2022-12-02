@@ -196,15 +196,17 @@ const Objects = forwardRef(function _Objects({nextObject, objectType, value, opI
 });
 
 render(
-    <SVG width={500} height={300}>
+    <SVG width={500} height={100}>
       <Objects nextObject={{ opId: 'object2' }} objectType={'tuple'} value={'1'} opId={'object1'} />
     </SVG>
 )
-
 ```
 
 We can imagine that the objects are located in a grid, and we can specify the contents of each grid with the ``Row`` and ``Col`` components.
 
+```tsx live noInline
+
+```
 
 ## Putting The Diagram Together
 
