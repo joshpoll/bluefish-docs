@@ -206,14 +206,10 @@ We can imagine that the objects are located in a grid, and we can specify the co
 
 ```tsx live noInline
 const ObjectsMatrix = forwardRef(function _ObjectsMatrix({objects, rows}, ref) {
+  
   // lookup map for the yellow objects
-
   const objMap = new Map();
   objects.forEach((obj) => objMap.set(obj.opId, obj));
-
-  console.log("printing info for this function");
-  console.log(objMap);
-  console.log(rows);
 
   return (
     <Group ref={ref} name={'matrix-rows'}>
