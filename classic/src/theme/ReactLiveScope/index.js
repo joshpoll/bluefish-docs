@@ -89,6 +89,52 @@ const Objects = React.forwardRef(function _Objects({nextObject, objectType, valu
   );
 });
 
+const GlobalFrame = React.forwardRef(function _GlobalFrame({ variables, opId }, ref) {
+  // References
+  const frame = React.useRef(null);
+  const opIdLabel = React.useRef(null);
+  const frameVariables = React.useRef(null);
+  const frameBorder = React.useRef(null);
+
+  // Font declaration
+  const fontFamily = 'Andale mono, monospace';
+
+  return (
+    <Bluefish.Group ref={ref} name={opId}>
+      {/* Global Frame and relevant text */}
+      <Bluefish.Rect ref={frame} height={300} width={200} fill={'#e2ebf6'} />
+      <Bluefish.Rect ref={frameBorder} height={300} width={5} fill={'#a6b3b6'} />
+      <Bluefish.Text ref={opIdLabel} contents={'Global Frame'} fontSize={'24px'} fontFamily={fontFamily} fill={'black'} />
+      <Bluefish.Align topCenter><Bluefish.Ref to={opIdLabel} /><Bluefish.Ref to={frame} /></Bluefish.Align>
+      {/* TODO: this Space and Align should be a Col, but Col overwrites *all* placeable positions
+            even though opIdLabel has already been placed */}
+      <Bluefish.Space vertically by={50}>
+        <Bluefish.Ref to={opIdLabel} />
+        <Bluefish.Col name={`frameVariables`} ref={frameVariables} spacing={20} alignment={'right'}>
+          {variables.map((variable) => (
+            <Bluefish.Variable data={variable} />
+          ))}
+        </Bluefish.Col>
+      </Bluefish.Space>
+      <Bluefish.Align right><Bluefish.Ref to={frameVariables} /><Bluefish.Ref to={opIdLabel} /></Bluefish.Align>
+      <Bluefish.Align centerLeft><Bluefish.Ref to={frameBorder} /><Bluefish.Ref to={frame} /></Bluefish.Align>
+    </Bluefish.Group>
+  );
+});
+
+
+const Link = React.forwardRef(function _Link({ opId, start, end }, ref) {
+  return (
+    <Bluefish.Group ref={ref}>
+      <Bluefish.LinkV2 ref={ref} name={opId} $from={'center'} $to={'centerLeft'} stroke={'cornflowerblue'} strokeWidth={3} strokeDasharray={0}>
+        <Bluefish.Ref to={start.opId} />
+        <Bluefish.Ref to={end.opId} />
+      </Bluefish.LinkV2>
+    </Bluefish.Group>
+  );
+});
+
+
 // Add react-live imports you need here
 const ReactLiveScope = {
   React,
@@ -97,5 +143,7 @@ const ReactLiveScope = {
   Node,
   Variable,
   Objects,
+  GlobalFrame,
+  Link,
 };
 export default ReactLiveScope;

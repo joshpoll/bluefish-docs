@@ -206,7 +206,7 @@ We can imagine that the objects are located in a grid, and we can specify the co
 
 ```tsx live noInline
 const ObjectsMatrix = forwardRef(function _ObjectsMatrix({objects, rows}, ref) {
-  
+
   // lookup map for the yellow objects
   const objMap = new Map();
   objects.forEach((obj) => objMap.set(obj.opId, obj));
@@ -227,7 +227,7 @@ const ObjectsMatrix = forwardRef(function _ObjectsMatrix({objects, rows}, ref) {
 
 render(
   // Try changing the objects or the arrangement of the matrix!
-  <SVG width={800} height={300}>
+  <SVG width={700} height={300}>
       <ObjectsMatrix objects={[
           { nextObject: { opId: 'o2' }, objectType: 'tuple', value: '1', opId: 'o1' },
           { nextObject: { opId: 'o3' }, objectType: 'tuple', value: '2', opId: 'o2' },
@@ -245,3 +245,99 @@ render(
 ## Putting The Diagram Together
 
 Now that we've created the two halves of our Python Tutor diagram, let's compose them together and add links between the global frame variables and the objects to complete our visualization!
+
+```tsx live noInline
+const PythonTutor = forwardRef(function _PythonTutor({variables, objects, rows, opId}, ref) {
+
+  const globalFrame = useRef(null);
+  const rowRef = useRef(null);
+
+  // lookup map for the yellow objects
+  const objMap = new Map();
+  objects.forEach((obj) => objMap.set(obj.opId, obj));
+
+  // find start and end location for links between objects and objects
+  const objectLinks = objects
+    .filter((object) => object.nextObject !== null)
+    .map((object, index) => {
+      return {
+        opId: `objectLink${index}`,
+        start: { opId: `pointer${object.opId}` },
+        end: { opId: `pointed${object.nextObject.opId}` },
+      };
+    });
+  
+  // find start and end locations for links between global frame and objects
+  const variableLinks = variables
+    .filter((variable) => variable.pointObject !== null)
+    .map((variable, index) => {
+      return {
+        opId: `variableLink${index}`,
+        start: { opId: variable.opId },
+        end: { opId: `pointed${variable.pointObject.opId}` },
+      };
+    });
+
+  return (
+    <Group ref={ref} name={opId}>
+      <GlobalFrame variables={variables} opId={'globalFrame'} ref={globalFrame} />
+
+      <Group ref={rowRef} name={'rows'}>
+        <Space name={'rowSpace'} vertically by={50}>
+          {rows.map((level, index) => (
+            <Row name={`row${index}`} spacing={50} alignment={'middle'}>
+              {level.nodes.map((obj) => (obj == '' ? <Rect name={'filler'} height={60} width={160} fill={'none'} stroke={'none'} /> : <Objects {...objMap.get(obj)} />))}
+            </Row>
+          ))}
+        </Space>
+      </Group>
+
+      <Space name={'space1'} horizontally by={120}>
+        <Ref to={globalFrame} />
+        <Ref to={rowRef} />
+      </Space>
+
+      <Space name={'space2'} vertically by={-250}>
+        <Ref to={globalFrame} />
+        <Ref to={rowRef} />
+      </Space>
+
+      {objectLinks.map((link) => (
+        <Group>
+          <Link {...link} />
+        </Group>
+      ))}
+      {variableLinks.map((link) => (
+        <Group>
+          <Link {...link} />
+        </Group>
+      ))}
+    </Group>
+
+  )
+});
+
+render(
+  // Try changing the objects or the arrangement of the matrix!
+  <SVG width={700} height={300}>
+      <PythonTutor
+        variables={[
+          { pointObject: { opId: 'o1' }, name: 'c', opId: 'v1' },
+          { pointObject: { opId: 'o2' }, name: 'd', opId: 'v2' },
+          { pointObject: null, name: 'x', value: '5', opId: 'v3' },
+        ]}
+        opId={'pythonTutorFrame'}
+        objects={[
+          { nextObject: { opId: 'o2' }, objectType: 'tuple', value: '1', opId: 'o1' },
+          { nextObject: { opId: 'o3' }, objectType: 'tuple', value: '2', opId: 'o2' },
+          { nextObject: null, objectType: 'tuple', value: '3', opId: 'o3' },
+        ]}
+        rows={[
+          { depth: 0, nodes: ['', 'o2', 'o3'] },
+          { depth: 1, nodes: ['o1', '', ''] },
+        ]}
+      />
+  </SVG>
+)
+
+```
