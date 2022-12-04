@@ -202,15 +202,47 @@ render(
 )
 ```
 
-We can imagine that the objects are located in a grid, and we can specify the contents of each grid with the ``Row`` and ``Col`` components. Therefore, our set of Objects is essentially a matrix.
+We can imagine that the objects are located in a grid, and we can specify the contents of each grid with a series of ``Row`` components. Therefore, our set of Objects is essentially a matrix.
 
 ```tsx live noInline
-const ObjectsMatrix = forwardRef(function _ObjectsMatrix({objects}, ref) {
+const ObjectsMatrix = forwardRef(function _ObjectsMatrix({objects, rows}, ref) {
+  // lookup map for the yellow objects
+
+  const objMap = new Map();
+  objects.forEach((obj) => objMap.set(obj.opId, obj));
+
+  console.log("printing info for this function");
+  console.log(objMap);
+  console.log(rows);
 
   return (
+    <Group ref={ref} name={'matrix-rows'}>
 
+      <Space name={'rowSpace'} vertically by={50}>
+        {rows.map((level, index) => (
+          <Row name={`row${index}`} spacing={50} alignment={'middle'}>
+            {level.nodes.map((obj) => (obj == '' ? <Rect name={'filler'} height={60} width={160} fill={'none'} stroke={'none'} /> : <Objects {...objMap.get(obj)} />))}
+          </Row>
+        ))}
+      </Space>
+    </Group>
   )
 });
+
+render(
+  // Try changing the objects or the arrangement of the matrix!
+  <SVG width={800} height={300}>
+      <ObjectsMatrix objects={[
+          { nextObject: { opId: 'o2' }, objectType: 'tuple', value: '1', opId: 'o1' },
+          { nextObject: { opId: 'o3' }, objectType: 'tuple', value: '2', opId: 'o2' },
+          { nextObject: null, objectType: 'tuple', value: '3', opId: 'o3' },
+        ]}
+        rows={[
+          { depth: 0, nodes: ['', 'o2', 'o3'] },
+          { depth: 1, nodes: ['o1', '', ''] },
+        ]} />
+  </SVG>
+)
 
 ```
 
