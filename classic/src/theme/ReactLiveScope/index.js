@@ -119,20 +119,80 @@ const GlobalFrame = React.forwardRef(function _GlobalFrame({ variables, opId }, 
   );
 });
 
+const LinkV2 = Bluefish.withBluefishFn(
+  (props) => {
+    return (measurables, constraints) => {
+      const [from, to] = measurables.map((m) => m.measure(constraints));
+      const [fromYDir, fromXDir] = splitAlignment(props.$from);
+      const [toYDir, toXDir] = splitAlignment(props.$to);
+
+      let fromX, fromY, toX, toY;
+      if (fromXDir === 'left') {
+        fromX = from.left;
+      } else if (fromXDir === 'right') {
+        fromX = from.right;
+      } else {
+        fromX = from.left + from.width / 2;
+      }
+
+      if (fromYDir === 'top') {
+        fromY = from.top;
+      } else if (fromYDir === 'bottom') {
+        fromY = from.bottom;
+      } else {
+        fromY = from.top + from.height / 2;
+      }
+
+      if (toXDir === 'left') {
+        toX = to.left;
+      } else if (toXDir === 'right') {
+        toX = to.right;
+      } else {
+        toX = to.left + to.width / 2;
+      }
+
+      if (toYDir === 'top') {
+        toY = to.top;
+      } else if (toYDir === 'bottom') {
+        toY = to.bottom;
+      } else {
+        toY = to.top + to.height / 2;
+      }
+
+      return {
+        left: fromX,
+        top: fromY,
+        right: toX,
+        bottom: toY,
+      };
+    };
+  },
+  (props) => {
+    const { $bbox, $from, $to, ...rest } = props;
+    return (<line {...rest} x1={$bbox?.left ?? 0} x2={$bbox?.right ?? 0} y1={$bbox?.top ?? 0} y2={$bbox?.bottom ?? 0} />);
+  },
+);
 
 const Link = React.forwardRef(function _Link({ opId, start, end }, ref) {
-  console.log("this is start and end");
-  console.log(start);
-  console.log(end);
+  const groupRef = React.useRef(null);
   return (
-    <Bluefish.Group ref={ref}>
-      <Bluefish.Connector $from={'center'} $to={'centerLeft'} stroke={'cornflowerblue'} strokeWidth={3}>
+    <Bluefish.Group ref={groupRef}>
+      <LinkV2
+        ref={ref}
+        name={opId}
+        $from={'center'}
+        $to={'centerLeft'}
+        stroke={'cornflowerblue'}
+        strokeWidth={3}
+        strokeDasharray={0}
+      >
         <Bluefish.Ref to={start.opId} />
         <Bluefish.Ref to={end.opId} />
-      </Bluefish.Connector>
+      </LinkV2>
     </Bluefish.Group>
   );
 });
+
 
 
 // Add react-live imports you need here
@@ -145,5 +205,6 @@ const ReactLiveScope = {
   Objects,
   GlobalFrame,
   Link,
+  LinkV2,
 };
 export default ReactLiveScope;

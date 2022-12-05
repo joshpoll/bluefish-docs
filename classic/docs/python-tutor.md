@@ -305,19 +305,21 @@ const PythonTutor = forwardRef(function _PythonTutor({variables, objects, rows, 
 
       {objectLinks.map((link) => (
         <Group>
-          <Connector $from={'center'} $to={'centerLeft'} stroke={'cornflowerblue'} strokeWidth={3}>
+          {/* <Link $from={'center'} $to={'centerLeft'} stroke={'cornflowerblue'} strokeWidth={3}>
             <Ref to={link.start.opId} />
             <Ref to={link.end.opId} />
-          </Connector>
+          </Link> */}
+          <Link {...link} />
         </Group>
       ))}
       
        {variableLinks.map((link) => (
         <Group>
-          <Connector $from={'center'} $to={'centerLeft'} stroke={'cornflowerblue'} strokeWidth={3}>
+          {/* <Link $from={'center'} $to={'centerLeft'} stroke={'cornflowerblue'} strokeWidth={3}>
             <Ref to={link.start.opId} />
             <Ref to={link.end.opId} />
-          </Connector>
+          </Link> */}
+          <Link {...link} />
         </Group>
       ))}
     </Group>
