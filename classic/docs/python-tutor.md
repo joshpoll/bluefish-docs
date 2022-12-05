@@ -165,8 +165,8 @@ const Objects = forwardRef(function _Objects({nextObject, objectType, value, opI
 
       {/* separate names for each rectangle so that the arrow can go from the center of pointer to the center left of pointed */}
       <Group ref={elemRef}>
-        <Rect ref={boxRef} name={`pointer${opId}`} height={60} width={80} fill={'#ffffc6'} stroke={'grey'} />
-        <Rect ref={itemRef} name={`pointed${opId}`} height={60} width={80} fill={'#ffffc6'} stroke={'grey'} />
+        <Rect ref={boxRef} name={`pointer${opId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+        <Rect ref={itemRef} name={`pointed${opId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
         <Text ref={valueRef} contents={value} fontSize={'24px'} fill={'black'} />
         <Text ref={zeroRef} contents={'0'} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
         <Text ref={oneRef} contents={'1'} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
@@ -281,18 +281,19 @@ const PythonTutor = forwardRef(function _PythonTutor({variables, objects, rows, 
   return (
     <Group ref={ref} name={opId}>
       <GlobalFrame variables={variables} opId={'globalFrame'} ref={globalFrame} />
-
+      
       <Group ref={rowRef} name={'rows'}>
         <Space name={'rowSpace'} vertically by={50}>
           {rows.map((level, index) => (
-            <Row name={`row${index}`} spacing={50} alignment={'middle'}>
+            <Row name={`row${index}`} spacing={30} alignment={'middle'}>
               {level.nodes.map((obj) => (obj == '' ? <Rect name={'filler'} height={60} width={160} fill={'none'} stroke={'none'} /> : <Objects {...objMap.get(obj)} />))}
             </Row>
           ))}
         </Space>
       </Group>
 
-      <Space name={'space1'} horizontally by={120}>
+      
+      <Space name={'space1'} horizontally by={60}>
         <Ref to={globalFrame} />
         <Ref to={rowRef} />
       </Space>
@@ -304,12 +305,19 @@ const PythonTutor = forwardRef(function _PythonTutor({variables, objects, rows, 
 
       {objectLinks.map((link) => (
         <Group>
-          <Link {...link} />
+          <Connector $from={'center'} $to={'centerLeft'} stroke={'cornflowerblue'} strokeWidth={3}>
+            <Ref to={link.start.opId} />
+            <Ref to={link.end.opId} />
+          </Connector>
         </Group>
       ))}
-      {variableLinks.map((link) => (
+      
+       {variableLinks.map((link) => (
         <Group>
-          <Link {...link} />
+          <Connector $from={'center'} $to={'centerLeft'} stroke={'cornflowerblue'} strokeWidth={3}>
+            <Ref to={link.start.opId} />
+            <Ref to={link.end.opId} />
+          </Connector>
         </Group>
       ))}
     </Group>
@@ -319,11 +327,11 @@ const PythonTutor = forwardRef(function _PythonTutor({variables, objects, rows, 
 
 render(
   // Try changing the objects or the arrangement of the matrix!
-  <SVG width={700} height={300}>
+  <SVG width={800} height={400}>
       <PythonTutor
         variables={[
-          { pointObject: { opId: 'o1' }, name: 'c', opId: 'v1' },
-          { pointObject: { opId: 'o2' }, name: 'd', opId: 'v2' },
+          { pointObject: { opId: 'o1' }, value: '', name: 'c', opId: 'v1' },
+          { pointObject: { opId: 'o2' }, value: '', name: 'd', opId: 'v2' },
           { pointObject: null, name: 'x', value: '5', opId: 'v3' },
         ]}
         opId={'pythonTutorFrame'}

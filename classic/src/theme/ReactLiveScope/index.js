@@ -73,8 +73,8 @@ const Objects = React.forwardRef(function _Objects({nextObject, objectType, valu
     <Bluefish.Group ref={ref} name={opId}>
       <Bluefish.Text ref={labelRef} contents={objectType} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
       <Bluefish.Group ref={elemRef}>
-        <Bluefish.Rect ref={boxRef} name={`pointer${opId}`} height={60} width={80} fill={'#ffffc6'} stroke={'grey'} />
-        <Bluefish.Rect ref={itemRef} name={`pointed${opId}`} height={60} width={80} fill={'#ffffc6'} stroke={'grey'} />
+        <Bluefish.Rect ref={boxRef} name={`pointer${opId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+        <Bluefish.Rect ref={itemRef} name={`pointed${opId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
         <Bluefish.Text ref={valueRef} contents={value} fontSize={'24px'} fill={'black'} />
         <Bluefish.Text ref={zeroRef} contents={'0'} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
         <Bluefish.Text ref={oneRef} contents={'1'} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
@@ -96,15 +96,12 @@ const GlobalFrame = React.forwardRef(function _GlobalFrame({ variables, opId }, 
   const frameVariables = React.useRef(null);
   const frameBorder = React.useRef(null);
 
-  // Font declaration
-  const fontFamily = 'Andale mono, monospace';
-
   return (
     <Bluefish.Group ref={ref} name={opId}>
       {/* Global Frame and relevant text */}
       <Bluefish.Rect ref={frame} height={300} width={200} fill={'#e2ebf6'} />
       <Bluefish.Rect ref={frameBorder} height={300} width={5} fill={'#a6b3b6'} />
-      <Bluefish.Text ref={opIdLabel} contents={'Global Frame'} fontSize={'24px'} fontFamily={fontFamily} fill={'black'} />
+      <Bluefish.Text ref={opIdLabel} contents={'Global Frame'} fontSize={'24px'} fontFamily={'Andale mono, monospace'} fill={'black'} />
       <Bluefish.Align topCenter><Bluefish.Ref to={opIdLabel} /><Bluefish.Ref to={frame} /></Bluefish.Align>
       {/* TODO: this Space and Align should be a Col, but Col overwrites *all* placeable positions
             even though opIdLabel has already been placed */}
@@ -112,7 +109,7 @@ const GlobalFrame = React.forwardRef(function _GlobalFrame({ variables, opId }, 
         <Bluefish.Ref to={opIdLabel} />
         <Bluefish.Col name={`frameVariables`} ref={frameVariables} spacing={20} alignment={'right'}>
           {variables.map((variable) => (
-            <Bluefish.Variable data={variable} />
+            <Variable data={variable} />
           ))}
         </Bluefish.Col>
       </Bluefish.Space>
@@ -124,12 +121,15 @@ const GlobalFrame = React.forwardRef(function _GlobalFrame({ variables, opId }, 
 
 
 const Link = React.forwardRef(function _Link({ opId, start, end }, ref) {
+  console.log("this is start and end");
+  console.log(start);
+  console.log(end);
   return (
     <Bluefish.Group ref={ref}>
-      <Bluefish.LinkV2 ref={ref} name={opId} $from={'center'} $to={'centerLeft'} stroke={'cornflowerblue'} strokeWidth={3} strokeDasharray={0}>
+      <Bluefish.Connector $from={'center'} $to={'centerLeft'} stroke={'cornflowerblue'} strokeWidth={3}>
         <Bluefish.Ref to={start.opId} />
         <Bluefish.Ref to={end.opId} />
-      </Bluefish.LinkV2>
+      </Bluefish.Connector>
     </Bluefish.Group>
   );
 });
