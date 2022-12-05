@@ -119,6 +119,48 @@ const GlobalFrame = React.forwardRef(function _GlobalFrame({ variables, opId }, 
   );
 });
 
+export const splitAlignment = (alignment) => {
+  let verticalAlignment;
+  let horizontalAlignment;
+  switch (alignment) {
+    case 'topLeft':
+    case 'topCenter':
+    case 'topRight':
+      verticalAlignment = 'top';
+      break;
+    case 'centerLeft':
+    case 'center':
+    case 'centerRight':
+      verticalAlignment = 'center';
+      break;
+    case 'bottomLeft':
+    case 'bottomCenter':
+    case 'bottomRight':
+      verticalAlignment = 'bottom';
+      break;
+  }
+
+  switch (alignment) {
+    case 'topLeft':
+    case 'centerLeft':
+    case 'bottomLeft':
+      horizontalAlignment = 'left';
+      break;
+    case 'topCenter':
+    case 'center':
+    case 'bottomCenter':
+      horizontalAlignment = 'center';
+      break;
+    case 'topRight':
+    case 'centerRight':
+    case 'bottomRight':
+      horizontalAlignment = 'right';
+      break;
+  }
+
+  return [verticalAlignment, horizontalAlignment];
+};
+
 const LinkV2 = Bluefish.withBluefishFn(
   (props) => {
     return (measurables, constraints) => {
