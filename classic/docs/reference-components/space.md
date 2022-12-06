@@ -4,7 +4,7 @@ The Space component spaces its children out evenly in either the vertical or hor
 
 It takes either the keyword `vertically` or `horizontally` in order to determine which direction to propagate the spacing.
 
-It also takes either of the two following attribute to specify how much to space its children:
+It also takes either **one** of the two following attribute to specify how much to space its children:
 
 `by` - how much space to put between each child
 
