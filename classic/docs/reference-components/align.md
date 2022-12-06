@@ -1,10 +1,8 @@
----
-sidebar_position: 1
----
+
 
 # Align
 
-The Align component in Bluefish aligns two Bluefish components to each other The syntax looks like:
+The Align component in Bluefish aligns two Bluefish components to each other. The syntax looks like:
 
 ```tsx
 <Align {direction1} to={direction2}>
