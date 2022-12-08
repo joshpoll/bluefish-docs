@@ -10,9 +10,11 @@ It takes the following attributes:
 
 `alignment` - How to align the items in the column (either `'left'`, `'center'`, or `'right'`)
 
+<!-- Currently unused attributes: -->
+<!-- 
 `x` (optional) - **Is this used?**
 
-`y` (optional) - **Is this used?**
+`y` (optional) - **Is this used?** -->
 
 
 If both the `spacing` and `totalHeight` attributes are defined, the component will resize all of its children to fit it into the total height while maintaining the given spacing.

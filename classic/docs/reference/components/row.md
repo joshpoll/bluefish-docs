@@ -10,9 +10,9 @@ It takes the following attributes:
 
 `alignment` - How to align the items in the row (either `'top'`, `'middle'`, or `'bottom'`)
 
-`x` (optional) - **Is this used?**
+<!-- `x` (optional) - **Is this used?**
 
-`y` (optional) - **Is this used?**
+`y` (optional) - **Is this used?** -->
 
 
 If both the `spacing` and `totalWidth` attributes are defined, the component will resize all of its children to fit it into the total width while maintaining the given spacing.
