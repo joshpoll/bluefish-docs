@@ -76,6 +76,12 @@ const config = {
           sidebarId: 'reference',
           label: 'Reference',},
           {
+            type: 'docSidebar',
+            position: 'left',
+            sidebarId: 'exampleGallery',
+            label: 'Example Gallery'
+          },
+          {
             href: 'https://github.com/joshpoll/bluefish',
             label: 'GitHub',
             position: 'right',
