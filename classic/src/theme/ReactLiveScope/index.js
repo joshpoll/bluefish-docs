@@ -236,6 +236,43 @@ const Link = React.forwardRef(function _Link({ opId, start, end }, ref) {
 });
 
 
+const ObjectsV2 = React.forwardRef(function _Objects({objectType, objectValues, objectId}, ref) {
+  const objectTypeRef = React.useRef(null);
+  const objectRef = React.useRef(null);
+  const boxZeroRef = React.useRef(null);
+  const boxOneRef = React.useRef(null);
+  const boxZeroValueRef = React.useRef(null);
+  const boxOneValueRef = React.useRef(null);
+  const zeroRef = React.useRef(null);
+  const oneRef = React.useRef(null);
+  const fontFamily = 'verdana, arial, helvetica, sans-serif';
+
+  return (
+    <Bluefish.Group ref={ref} name={objectId}>
+      <Bluefish.Text ref={objectTypeRef} contents={objectType} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
+      <Bluefish.Group ref={objectRef}>
+        <Bluefish.Rect ref={boxZeroRef} name={`pointer${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+        <Bluefish.Rect ref={boxOneRef} name={`pointed${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+
+        {(objectValues[0].type == 'string') ? <Bluefish.Text ref={boxZeroValueRef} contents={objectValues[0].value} fontSize={'24px'} fill={'black'} /> : <Bluefish.Text ref={boxZeroValueRef} contents={''} fill={'none'} />}
+        {(objectValues[1].type == 'string') ? <Bluefish.Text ref={boxOneValueRef} contents={objectValues[1].value} fontSize={'24px'} fill={'black'} /> : <Bluefish.Text ref={boxOneValueRef} contents={''} fill={'none'} />}
+
+        <Bluefish.Text ref={zeroRef} contents={'0'} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
+        <Bluefish.Text ref={oneRef} contents={'1'} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
+
+        <Bluefish.Align center><Bluefish.Ref to={boxZeroValueRef} /><Bluefish.Ref to={boxZeroRef} /></Bluefish.Align>
+        <Bluefish.Align left to={'centerRight'}><Bluefish.Ref to={boxOneRef} /><Bluefish.Ref to={boxZeroRef} /></Bluefish.Align>
+        <Bluefish.Align center><Bluefish.Ref to={boxOneValueRef} /><Bluefish.Ref to={boxOneRef} /></Bluefish.Align>
+        <Bluefish.Align topLeft><Bluefish.Ref to={oneRef} /><Bluefish.Ref to={boxOneRef} /></Bluefish.Align>
+      </Bluefish.Group>
+
+      <Bluefish.Space vertically by={10}><Bluefish.Ref to={objectTypeRef} /><Bluefish.Ref to={objectRef} /></Bluefish.Space>
+    </Bluefish.Group>
+  );
+
+});
+
+
 
 // Add react-live imports you need here
 const ReactLiveScope = {
@@ -248,5 +285,6 @@ const ReactLiveScope = {
   GlobalFrame,
   Link,
   LinkV2,
+  ObjectsV2,
 };
 export default ReactLiveScope;

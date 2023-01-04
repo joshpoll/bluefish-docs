@@ -425,5 +425,23 @@ render(
           objectId={'object1'} />
     </SVG>
 )
+```
+
+Now let's build Python Tutor again with our updated Object type!
+
+```tsx live noInline
+
+render(
+  <SVG width={500} height={100}>
+      <ObjectsV2 
+          objectType={'tuple'} 
+          objectValues={[
+            {type: 'string', value: '1'}, 
+            {type: 'string', value: '2'}]} 
+          objectId={'object1'} />
+    </SVG>
+)
+
 
 ```
+
