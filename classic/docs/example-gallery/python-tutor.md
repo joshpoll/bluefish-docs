@@ -374,8 +374,8 @@ const ObjectsV2 = forwardRef(function _Objects({objectType, objectValues, object
 
       {/* separate names for each rectangle so that the arrow can go from the center of pointer to the center left of pointed */}
       <Group ref={objectRef}>
-        <Rect ref={boxZeroRef} name={`pointer${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
-        <Rect ref={boxOneRef} name={`pointed${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+        <Rect ref={boxOneRef} name={`pointer${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+        <Rect ref={boxZeroRef} name={`pointed${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
 
         {/* Generate Text in Object based on whether it is a string or a pointer */}
         {(objectValues[0].type == 'string') ? <Text ref={boxZeroValueRef} contents={objectValues[0].value} fontSize={'24px'} fill={'black'} /> : <Text ref={boxZeroValueRef} contents={''} fill={'none'} />}
@@ -431,17 +431,114 @@ Now let's build Python Tutor again with our updated Object type!
 
 ```tsx live noInline
 
-render(
-  <SVG width={500} height={100}>
-      <ObjectsV2 
-          objectType={'tuple'} 
-          objectValues={[
-            {type: 'string', value: '1'}, 
-            {type: 'string', value: '2'}]} 
-          objectId={'object1'} />
-    </SVG>
-)
+const PythonTutorV2 = forwardRef(function _PythonTutor({variables, objects, rows, opId}, ref) {
 
+  const globalFrame = useRef(null);
+  const rowRef = useRef(null);
+
+  // lookup map for the yellow objects
+  const objMap = new Map();
+  objects.forEach((obj) => objMap.set(obj.objectId, obj));
+
+  const objectValues = objects.map((object) => {
+    const objectWithPointerInfo = object.objectValues.map((element) => {
+      return {...element, objectId: object.objectId}});
+    return objectWithPointerInfo;
+  });
+
+  const objectValuesFlat = objectValues.flat();
+
+  // find start and end location for links between objects and objects
+  const objectLinks = objectValuesFlat
+    .filter((boxObject) => boxObject.type == 'pointer')
+    .map((element, index) => {
+      return {
+            opId: `objectLink${index}`,
+            start: { opId: `pointer${element.objectId}` },
+            end: { opId: `pointed${element.pointId}` },
+          };
+    });
+  
+  // find start and end locations for links between global frame and objects
+  const variableLinks = variables
+    .filter((variable) => variable.pointObject !== null)
+    .map((variable, index) => {
+      return {
+        opId: `variableLink${index}`,
+        start: { opId: variable.opId },
+        end: { opId: `pointed${variable.pointObject.opId}` },
+      };
+    });
+
+  return (
+    <Group ref={ref} name={opId}>
+      <GlobalFrame variables={variables} opId={'globalFrame'} ref={globalFrame} />
+      
+      <Group ref={rowRef} name={'rows'}>
+        <Space name={'rowSpace'} vertically by={50}>
+          {rows.map((level, index) => (
+            <Row name={`row${index}`} spacing={30} alignment={'middle'}>
+              {level.nodes.map((obj) => (obj == '' ? <Rect name={'filler'} height={60} width={160} fill={'none'} stroke={'none'} /> : <ObjectsV2 {...objMap.get(obj)} />))}
+            </Row>
+          ))}
+        </Space>
+      </Group>
+
+      
+      <Space name={'space1'} horizontally by={60}>
+        <Ref to={globalFrame} />
+        <Ref to={rowRef} />
+      </Space>
+
+      <Space name={'space2'} vertically by={-250}>
+        <Ref to={globalFrame} />
+        <Ref to={rowRef} />
+      </Space>
+
+      {objectLinks.map((link) => (
+        <Group>
+          <Link {...link} />
+        </Group>
+      ))}
+      
+       {variableLinks.map((link) => (
+        <Group>
+          <Link {...link} />
+        </Group>
+      ))}
+    </Group>
+
+  )
+});
+
+render(
+  // Try changing the objects or the arrangement of the matrix!
+  <SVG width={800} height={400}>
+      <PythonTutorV2
+        variables={[
+          { pointObject: { opId: 'o1' }, value: '', name: 'c', opId: 'v1' },
+          { pointObject: { opId: 'o2' }, value: '', name: 'd', opId: 'v2' },
+          { pointObject: null, name: 'x', value: '5', opId: 'v3' },
+        ]}
+        opId={'pythonTutorFrameV2'}
+        objects={[
+          { objectType: 'tuple', objectId: 'o1',
+            objectValues: [{type: 'string', value: '1'}, {type: 'pointer', pointId: 'o2'}]  
+          },
+          { objectType: 'tuple', objectId: 'o2',
+            objectValues: [{type: 'string', value: '2'}, {type: 'pointer', pointId: 'o3'}]
+          },
+          { objectType: 'tuple', objectId: 'o3',
+            objectValues: [{type: 'string', value: '3'}, {type: 'string', value: ''}]  
+          },
+        ]}
+        rows={[
+          { depth: 0, nodes: ['', 'o2', 'o3'] },
+          { depth: 1, nodes: ['o1', '', ''] },
+        ]}
+      />
+  </SVG>
+)
 
 ```
 

@@ -251,8 +251,8 @@ const ObjectsV2 = React.forwardRef(function _Objects({objectType, objectValues, 
     <Bluefish.Group ref={ref} name={objectId}>
       <Bluefish.Text ref={objectTypeRef} contents={objectType} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
       <Bluefish.Group ref={objectRef}>
-        <Bluefish.Rect ref={boxZeroRef} name={`pointer${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
-        <Bluefish.Rect ref={boxOneRef} name={`pointed${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+        <Bluefish.Rect ref={boxOneRef} name={`pointer${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+        <Bluefish.Rect ref={boxZeroRef} name={`pointed${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
 
         {(objectValues[0].type == 'string') ? <Bluefish.Text ref={boxZeroValueRef} contents={objectValues[0].value} fontSize={'24px'} fill={'black'} /> : <Bluefish.Text ref={boxZeroValueRef} contents={''} fill={'none'} />}
         {(objectValues[1].type == 'string') ? <Bluefish.Text ref={boxOneValueRef} contents={objectValues[1].value} fontSize={'24px'} fill={'black'} /> : <Bluefish.Text ref={boxOneValueRef} contents={''} fill={'none'} />}
