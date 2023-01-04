@@ -305,20 +305,12 @@ const PythonTutor = forwardRef(function _PythonTutor({variables, objects, rows, 
 
       {objectLinks.map((link) => (
         <Group>
-          {/* <Link $from={'center'} $to={'centerLeft'} stroke={'cornflowerblue'} strokeWidth={3}>
-            <Ref to={link.start.opId} />
-            <Ref to={link.end.opId} />
-          </Link> */}
           <Link {...link} />
         </Group>
       ))}
       
        {variableLinks.map((link) => (
         <Group>
-          {/* <Link $from={'center'} $to={'centerLeft'} stroke={'cornflowerblue'} strokeWidth={3}>
-            <Ref to={link.start.opId} />
-            <Ref to={link.end.opId} />
-          </Link> */}
           <Link {...link} />
         </Group>
       ))}
@@ -353,3 +345,85 @@ render(
 ```
 
 ## Generalizing Python Tutor
+
+Python Tutor diagrams are very flexible, and the content represented in the diagram can be very diverse. For example, objects could have arbitrary length. Objects themselves could simply store pointers to other primitive types. In the following sections, we will explore how to generalize the Bluefish Python Tutor diagram to flexibility handle these situations.
+
+### Redefining the Object Type
+
+First, let's modify our tuple Objects. We see that there are two cases we should consider: when the tuple is a pointer to another object, or when the tuple contains a value.
+
+```tsx live noInline
+const ObjectsV2 = forwardRef(function _Objects({objectType, objectValues, objectId}, ref) {
+  // objectValues: list with two entries; first entry is type of first box, second entry is type of second box
+
+  const objectTypeRef = useRef(null);
+  const objectRef = useRef(null);
+
+  const boxZeroRef = useRef(null);
+  const boxOneRef = useRef(null);
+  const boxZeroValueRef = useRef(null);
+  const boxOneValueRef = useRef(null);
+  const zeroRef = useRef(null);
+  const oneRef = useRef(null);
+
+  const fontFamily = 'verdana, arial, helvetica, sans-serif';
+
+  return (
+    <Group ref={ref} name={objectId}>
+      <Text ref={objectTypeRef} contents={objectType} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
+
+      {/* separate names for each rectangle so that the arrow can go from the center of pointer to the center left of pointed */}
+      <Group ref={objectRef}>
+        <Rect ref={boxZeroRef} name={`pointer${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+        <Rect ref={boxOneRef} name={`pointed${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+
+        {/* Generate Text in Object based on whether it is a string or a pointer */}
+        {(objectValues[0].type == 'string') ? <Text ref={boxZeroValueRef} contents={objectValues[0].value} fontSize={'24px'} fill={'black'} /> : <Text ref={boxZeroValueRef} contents={''} fill={'none'} />}
+
+        {(objectValues[1].type == 'string') ? <Text ref={boxOneValueRef} contents={objectValues[1].value} fontSize={'24px'} fill={'black'} /> : <Text ref={boxOneValueRef} contents={''} fill={'none'} />}
+
+        {/* Labels in top left corner*/}
+        <Text ref={zeroRef} contents={'0'} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
+        <Text ref={oneRef} contents={'1'} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
+
+        <Align center>
+          <Ref to={boxZeroValueRef} />
+          <Ref to={boxZeroRef} />
+        </Align>
+
+        <Align left to={'centerRight'}>
+          <Ref to={boxOneRef} />
+          <Ref to={boxZeroRef} />
+        </Align>
+
+        <Align center>
+          <Ref to={boxOneValueRef} />
+          <Ref to={boxOneRef} />
+        </Align>
+
+        <Align topLeft>
+          <Ref to={oneRef} />
+          <Ref to={boxOneRef} />
+        </Align>
+      </Group>
+
+      <Space vertically by={10}>
+        <Ref to={objectTypeRef} />
+        <Ref to={objectRef} />
+      </Space>
+    </Group>
+  );
+
+});
+render(
+  <SVG width={500} height={100}>
+      <ObjectsV2 
+          objectType={'tuple'} 
+          objectValues={[
+            {type: 'string', value: '1'}, 
+            {type: 'string', value: '2'}]} 
+          objectId={'object1'} />
+    </SVG>
+)
+
+```
