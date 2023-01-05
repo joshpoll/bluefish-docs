@@ -529,7 +529,7 @@ render(
             objectValues: [{type: 'string', value: '2'}, {type: 'pointer', pointId: 'o3'}]
           },
           { objectType: 'tuple', objectId: 'o3',
-            objectValues: [{type: 'string', value: '3'}, {type: 'string', value: ''}]  
+            objectValues: [{type: 'string', value: '3'}, {type: 'string', value: '10'}]  
           },
         ]}
         rows={[
