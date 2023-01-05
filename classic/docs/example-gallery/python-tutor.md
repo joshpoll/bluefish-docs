@@ -616,3 +616,20 @@ render(
     </SVG>
 )
 ```
+
+Once again, let's build Python Tutor with tuples of various types and lengths!
+
+```tsx live noInline
+render(
+  <SVG width={500} height={100}>
+      <ObjectsV3 
+          objectType={'tuple'} 
+          objectValues={[
+            {type: 'string', value: '1'}, 
+            {type: 'string', value: '2'},
+            {type: 'pointer', pointId: 'object1'}, 
+            {type: 'string', value: '30'}]} 
+          objectId={'object1'} />
+    </SVG>
+)
+```
