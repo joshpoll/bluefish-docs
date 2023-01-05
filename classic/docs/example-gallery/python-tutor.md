@@ -348,7 +348,7 @@ render(
 
 Python Tutor diagrams are very flexible, and the content represented in the diagram can be very diverse. For example, objects could have arbitrary length. Objects themselves could simply store pointers to other primitive types. In the following sections, we will explore how to generalize the Bluefish Python Tutor diagram to flexibility handle these situations.
 
-### Redefining the Object Type
+### Redefining the Components of the Object Type
 
 First, let's modify our tuple Objects. We see that there are two cases we should consider: when the tuple is a pointer to another object, or when the tuple contains a value.
 
@@ -430,7 +430,6 @@ render(
 Now let's build Python Tutor again with our updated Object type!
 
 ```tsx live noInline
-
 const PythonTutorV2 = forwardRef(function _PythonTutor({variables, objects, rows, opId}, ref) {
 
   const globalFrame = useRef(null);
@@ -441,8 +440,8 @@ const PythonTutorV2 = forwardRef(function _PythonTutor({variables, objects, rows
   objects.forEach((obj) => objMap.set(obj.objectId, obj));
 
   const objectValues = objects.map((object) => {
-    const objectWithPointerInfo = object.objectValues.map((element) => {
-      return {...element, objectId: object.objectId}});
+    const objectWithPointerInfo = object.objectValues.map((element, index) => {
+      return {...element, objectId: object.objectId, objectOrder : index}});
     return objectWithPointerInfo;
   });
 
@@ -539,6 +538,81 @@ render(
       />
   </SVG>
 )
-
 ```
 
+### Creating Objects of Arbitrarily Length
+
+In our implementation so far, we've been restricted to using tuple objects of length two (typically with a value in the first part of the object and a pointer in the second half). In this section, we will extend our concept of Objects even further by allowing Objects of arbitrary length.
+
+```tsx live noInline
+const ObjectsV3 = forwardRef(function _Objects({objectType, objectValues, objectId}, ref) {
+  // objectValues: list of values for different parts of object
+
+  const objectTypeRef = useRef(null);
+  const objectRef = useRef(null);
+
+  const elementWithIndex = objectValues.map((elementVals, index) => {return {...elementVals, order: index}});
+  const allExceptElmZero = elementWithIndex.filter((elementData) => {return elementData.order !== 0});
+
+  const fontFamily = 'verdana, arial, helvetica, sans-serif';
+
+  return (
+    <Group ref={ref} name={objectId}>
+      <Text ref={objectTypeRef} contents={objectType} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
+
+      <Group ref={objectRef}>
+        {objectValues.map((elementData, index) => (
+          <Rect name={`elm_${index}_${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+        ))}
+
+        {elementWithIndex.map((elementData) => (
+          <Text name={`elmLabel_${elementData.order}_${objectId}`} contents={`${elementData.order}`} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
+        ))}
+
+        {objectValues.map((elementData, index) => (
+          (elementData.type == 'string') ? <Text name={`elmVal_${index}_${objectId}`} contents={elementData.value} fontSize={'24px'} fill={'black'}/> : <Text name={`elmVal_${index}_${objectId}`} contents={''} fill={'none'}/>
+        ))}
+
+        {allExceptElmZero.map((boxElement) => (
+            <Align left to={'centerRight'}>
+              <Ref to={`elm_${boxElement.order}_${objectId}`} />
+              <Ref to={`elm_${boxElement.order - 1}_${objectId}`} />
+            </Align>
+          ))}
+
+        {elementWithIndex.map((boxElement) => (
+          <Align center>
+            <Ref to={`elmVal_${boxElement.order}_${objectId}`} />
+            <Ref to={`elm_${boxElement.order}_${objectId}`} />
+          </Align>
+        ))}
+
+        {elementWithIndex.map((boxElement) => (
+          <Align topLeft>
+            <Ref to={`elmLabel_${boxElement.order}_${objectId}`} />
+            <Ref to={`elm_${boxElement.order}_${objectId}`} />
+          </Align>
+        ))}
+      </Group>
+
+      <Space vertically by={10}>
+        <Ref to={objectTypeRef} />
+        <Ref to={objectRef} />
+      </Space>
+    </Group>
+  );
+
+});
+render(
+  <SVG width={500} height={100}>
+      <ObjectsV3 
+          objectType={'tuple'} 
+          objectValues={[
+            {type: 'string', value: '1'}, 
+            {type: 'string', value: '2'},
+            {type: 'pointer', pointId: 'object1'}, 
+            {type: 'string', value: '30'}]} 
+          objectId={'object1'} />
+    </SVG>
+)
+```
