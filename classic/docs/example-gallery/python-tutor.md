@@ -620,16 +620,112 @@ render(
 Once again, let's build Python Tutor with tuples of various types and lengths!
 
 ```tsx live noInline
+const PythonTutorV3 = forwardRef(function _PythonTutor({variables, objects, rows, opId}, ref) {
+
+  const globalFrame = useRef(null);
+  const rowRef = useRef(null);
+
+  // lookup map for the yellow objects
+  const objMap = new Map();
+  objects.forEach((obj) => objMap.set(obj.objectId, obj));
+
+  const objectValues = objects.map((object) => {
+    const objectWithPointerInfo = object.objectValues.map((element, index) => {
+      return {...element, objectId: object.objectId, objectOrder : index}});
+    return objectWithPointerInfo;
+  });
+
+  const objectValuesFlat = objectValues.flat();
+
+  // find start and end location for links between objects and objects
+  const objectLinks = objectValuesFlat
+    .filter((boxObject) => boxObject.type == 'pointer')
+    .map((element, index) => {
+      return {
+            opId: `objectLink${index}`,
+            start: { opId: `elm_${element.objectOrder}_${element.objectId}` },
+            end: { opId: `elm_0_${element.pointId}` },
+          };
+    });
+  
+  // find start and end locations for links between global frame and objects
+  const variableLinks = variables
+    .filter((variable) => variable.pointObject !== null)
+    .map((variable, index) => {
+      return {
+        opId: `variableLink${index}`,
+        start: { opId: variable.opId },
+        end: { opId: `elm_0_${variable.pointObject.opId}` },
+      };
+    });
+
+  return (
+    <Group ref={ref} name={opId}>
+      <GlobalFrame variables={variables} opId={'globalFrame'} ref={globalFrame} />
+      
+      <Group ref={rowRef} name={'rows'}>
+        <Space name={'rowSpace'} vertically by={50}>
+          {rows.map((level, index) => (
+            <Row name={`row${index}`} spacing={30} alignment={'middle'}>
+              {level.nodes.map((obj) => (obj == '' ? <Rect name={'filler'} height={60} width={160} fill={'none'} stroke={'none'} /> : <ObjectsV3 {...objMap.get(obj)} />))}
+            </Row>
+          ))}
+        </Space>
+      </Group>
+
+      
+      <Space name={'space1'} horizontally by={60}>
+        <Ref to={globalFrame} />
+        <Ref to={rowRef} />
+      </Space>
+
+      <Space name={'space2'} vertically by={-250}>
+        <Ref to={globalFrame} />
+        <Ref to={rowRef} />
+      </Space>
+
+      {objectLinks.map((link) => (
+        <Group>
+          <Link {...link} />
+        </Group>
+      ))}
+      
+       {variableLinks.map((link) => (
+        <Group>
+          <Link {...link} />
+        </Group>
+      ))}
+    </Group>
+
+  )
+});
+
 render(
-  <SVG width={500} height={100}>
-      <ObjectsV3 
-          objectType={'tuple'} 
-          objectValues={[
-            {type: 'string', value: '1'}, 
-            {type: 'string', value: '2'},
-            {type: 'pointer', pointId: 'object1'}, 
-            {type: 'string', value: '30'}]} 
-          objectId={'object1'} />
-    </SVG>
+  // Try changing the objects or the arrangement of the matrix!
+  <SVG width={800} height={400}>
+      <PythonTutorV3
+        variables={[
+          { pointObject: { opId: 'o1' }, value: '', name: 'c', opId: 'v1' },
+          { pointObject: { opId: 'o2' }, value: '', name: 'd', opId: 'v2' },
+          { pointObject: null, name: 'x', value: '5', opId: 'v3' },
+        ]}
+        opId={'pythonTutorFrameV2'}
+        objects={[
+          { objectType: 'tuple', objectId: 'o1',
+            objectValues: [{type: 'string', value: '1'}, {type: 'pointer', pointId: 'o2'}, {type: 'string', value: '30'}, {type: 'pointer', pointId: 'o3'}]  
+          },
+          { objectType: 'tuple', objectId: 'o2',
+            objectValues: [{type: 'string', value: '1'}, {type: 'string', value: '4'}]
+          },
+          { objectType: 'tuple', objectId: 'o3',
+            objectValues: [{type: 'string', value: '3'}, {type: 'string', value: '10'}]  
+          },
+        ]}
+        rows={[
+          { depth: 0, nodes: ['', 'o2', 'o3'] },
+          { depth: 1, nodes: ['o1', '', ''] },
+        ]}
+      />
+  </SVG>
 )
 ```
