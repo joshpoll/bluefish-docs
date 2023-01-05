@@ -374,8 +374,8 @@ const ObjectsV2 = forwardRef(function _Objects({objectType, objectValues, object
 
       {/* separate names for each rectangle so that the arrow can go from the center of pointer to the center left of pointed */}
       <Group ref={objectRef}>
-        <Rect ref={boxOneRef} name={`pointer${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
-        <Rect ref={boxZeroRef} name={`pointed${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+        <Rect ref={boxOneRef} name={`elm_1_${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+        <Rect ref={boxZeroRef} name={`elm_0_${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
 
         {/* Generate Text in Object based on whether it is a string or a pointer */}
         {(objectValues[0].type == 'string') ? <Text ref={boxZeroValueRef} contents={objectValues[0].value} fontSize={'24px'} fill={'black'} /> : <Text ref={boxZeroValueRef} contents={''} fill={'none'} />}
@@ -453,8 +453,8 @@ const PythonTutorV2 = forwardRef(function _PythonTutor({variables, objects, rows
     .map((element, index) => {
       return {
             opId: `objectLink${index}`,
-            start: { opId: `pointer${element.objectId}` },
-            end: { opId: `pointed${element.pointId}` },
+            start: { opId: `elm_${element.objectOrder}_${element.objectId}` },
+            end: { opId: `elm_0_${element.pointId}` },
           };
     });
   
@@ -465,7 +465,7 @@ const PythonTutorV2 = forwardRef(function _PythonTutor({variables, objects, rows
       return {
         opId: `variableLink${index}`,
         start: { opId: variable.opId },
-        end: { opId: `pointed${variable.pointObject.opId}` },
+        end: { opId: `elm_0_${variable.pointObject.opId}` },
       };
     });
 
@@ -525,15 +525,18 @@ render(
             objectValues: [{type: 'string', value: '1'}, {type: 'pointer', pointId: 'o2'}]  
           },
           { objectType: 'tuple', objectId: 'o2',
-            objectValues: [{type: 'string', value: '2'}, {type: 'pointer', pointId: 'o3'}]
+            objectValues: [{type: 'pointer', pointId: 'o4'}, {type: 'pointer', pointId: 'o3'}]
           },
           { objectType: 'tuple', objectId: 'o3',
-            objectValues: [{type: 'string', value: '3'}, {type: 'string', value: '10'}]  
+            objectValues: [{type: 'string', value: '3'}, {type: 'string', value: '6'}]  
+          },
+          { objectType: 'tuple', objectId: 'o4',
+            objectValues: [{type: 'string', value: "5"}, {type: 'string', value: "7"}]  
           },
         ]}
         rows={[
           { depth: 0, nodes: ['', 'o2', 'o3'] },
-          { depth: 1, nodes: ['o1', '', ''] },
+          { depth: 1, nodes: ['o1', '', 'o4'] },
         ]}
       />
   </SVG>
