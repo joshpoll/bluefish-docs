@@ -17,5 +17,5 @@ It takes [SVG rectangle attributes](https://developer.mozilla.org/en-US/docs/Web
 
 An example of the syntax looks like this:
 ```tsx
-<Rect x={x} y={y} width={w} height={h}/>
+<Rect x={x} y={y} width={w} height={h} />
 ```

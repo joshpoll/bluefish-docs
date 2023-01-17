@@ -17,8 +17,8 @@ topLeft, topCenter, topRight, centerLeft, center, centerRight, bottomLeft, botto
 An example of the syntax looks like this:
 ```tsx
 <Connector $from={'centerLeft'} $to={'centerRight'}>
-    <BluefishComponent1/>
-    <BluefishComponent2/>
+    <BluefishComponent1 />
+    <BluefishComponent2 />
 <Connector/>
 ```
 

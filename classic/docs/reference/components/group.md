@@ -5,7 +5,7 @@ The Group component groups its children components together. It automatically as
 An example of the syntax looks like this:
 ```tsx
 <Group>
-    <OtherComponent1/>
-    <OtherComponent2/>
+    <OtherComponent1 />
+    <OtherComponent2 />
 </Group>
 ```

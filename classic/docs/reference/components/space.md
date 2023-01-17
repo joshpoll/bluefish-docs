@@ -15,15 +15,15 @@ The `by` attribute takes precedence over the `height` and `width` attributes.
 An example of the syntax looks like this:
 ```tsx
 <Space vertically by={20}>
-    <BluefishComponent1/>
-    <BluefishComponent2/>
+    <BluefishComponent1 />
+    <BluefishComponent2 />
 </Space>
 ```
 
 or this:
 ```tsx
 <Space horizontally width={20}>
-    <BluefishComponent1/>
-    <BluefishComponent2/>
+    <BluefishComponent1 />
+    <BluefishComponent2 />
 </Space>
 ```

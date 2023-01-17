@@ -6,8 +6,8 @@ The Align component in Bluefish aligns two Bluefish components to each other. Th
 
 ```tsx
 <Align {direction1} to={direction2}>
-    <Component1/>
-    <Component2/>
+    <Component1 />
+    <Component2 />
 </Align>
 ```
 
