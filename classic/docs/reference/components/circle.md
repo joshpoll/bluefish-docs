@@ -8,5 +8,5 @@ It takes [SVG circle attributes](https://developer.mozilla.org/en-US/docs/Web/SV
 
 An example of the syntax looks like this:
 ```tsx
-<Circle cx={x} cy={y} r={r}/>
+<Circle cx={x} cy={y} r={r} />
 ```

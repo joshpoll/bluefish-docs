@@ -16,6 +16,6 @@ There are two options when specifying the amount of padding:
 
 ```tsx
 <Padding all={a}>
-    <BluefishComponen />
+    <BluefishComponent />
 </Padding>
 ```

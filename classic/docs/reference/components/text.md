@@ -9,9 +9,7 @@ It takes [SVG Text attributes](https://developer.mozilla.org/en-US/docs/Web/SVG/
 An example of the syntax looks like this: 
 
 ```tsx
-<Text>
-    contents={"Hello World"}
+<Text contents={"Hello World"}
     fontSize={'24px'}
-    fill={'black'}
-</Text>
+    fill={'black'} />
 ```
