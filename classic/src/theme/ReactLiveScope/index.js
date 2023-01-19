@@ -287,48 +287,32 @@ const ElmTuple = React.forwardRef(function _ElmTuple({ tupleIndex, tupleData, ob
   );
 });
 
-const ObjectsV3 = React.forwardRef(function _Objects({objectType, objectValues, objectId}, ref) {
+const ObjectsV3 = React.forwardRef(function _Objects({ objectType, objectValues, objectId }, ref) {
   const objectTypeRef = React.useRef(null);
   const objectRef = React.useRef(null);
-  const elementWithIndex = objectValues.map((elementVals, index) => {return {...elementVals, order: index}});
-  const allExceptElmZero = elementWithIndex.filter((elementData) => {return elementData.order !== 0});
-  const fontFamily = 'verdana, arial, helvetica, sans-serif';
+
+  const elementWithIndex = objectValues.map((elementVals, index) => {
+    return { ...elementVals, order: index };
+  });
+  const allExceptElmZero = elementWithIndex.filter((elementData) => {
+    return elementData.order !== 0;
+  });
+
+  const fontFamily = "verdana, arial, helvetica, sans-serif";
 
   return (
     <Bluefish.Group ref={ref} name={objectId}>
-      <Bluefish.Text ref={objectTypeRef} contents={objectType} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
+      <Bluefish.Text ref={objectTypeRef} contents={objectType} fontFamily={fontFamily} fontSize={"16px"} fill={"grey"}/>
 
-      <Bluefish.Group ref={objectRef}>
+      <Bluefish.Row ref={objectRef} spacing={0} alignment={'middle'}>
         {objectValues.map((elementData, index) => (
-          <Bluefish.Rect name={`elm_${index}_${objectId}`} height={60} width={70} fill={'#ffffc6'} stroke={'grey'} />
+          <ElmTuple tupleIndex={index} tupleData={elementData} objectId={objectId}/>
         ))}
-
-        {elementWithIndex.map((elementData) => (
-          <Bluefish.Text name={`elmLabel_${elementData.order}_${objectId}`} contents={`${elementData.order}`} fontFamily={fontFamily} fontSize={'16px'} fill={'grey'} />
-        ))}
-
-        {objectValues.map((elementData, index) => (
-          (elementData.type == 'string') ? <Bluefish.Text name={`elmVal_${index}_${objectId}`} contents={elementData.value} fontSize={'24px'} fill={'black'}/> : <Bluefish.Text name={`elmVal_${index}_${objectId}`} contents={''} fill={'none'}/>
-        ))}
-
-        {allExceptElmZero.map((boxElement) => (
-            <Bluefish.Align left to={'centerRight'}><Bluefish.Ref to={`elm_${boxElement.order}_${objectId}`} /><Bluefish.Ref to={`elm_${boxElement.order - 1}_${objectId}`} /></Bluefish.Align>
-          ))}
-
-        {elementWithIndex.map((boxElement) => (
-          <Bluefish.Align center><Bluefish.Ref to={`elmVal_${boxElement.order}_${objectId}`} /><Bluefish.Ref to={`elm_${boxElement.order}_${objectId}`} /></Bluefish.Align>
-        ))}
-
-        {elementWithIndex.map((boxElement) => (
-          <Bluefish.Align topLeft><Bluefish.Ref to={`elmLabel_${boxElement.order}_${objectId}`} /><Bluefish.Ref to={`elm_${boxElement.order}_${objectId}`} /></Bluefish.Align>
-        ))}
-      </Bluefish.Group>
-
+      </Bluefish.Row>
       <Bluefish.Space vertically by={10}><Bluefish.Ref to={objectTypeRef} /><Bluefish.Ref to={objectRef} /></Bluefish.Space>
     </Bluefish.Group>
   );
 });
-
 
 // Add react-live imports you need here
 const ReactLiveScope = {

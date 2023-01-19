@@ -824,73 +824,18 @@ const ObjectsV3 = forwardRef(function _Objects({ objectType, objectValues, objec
 
   return (
     <Group ref={ref} name={objectId}>
-      <Text
+      <Text 
         ref={objectTypeRef}
         contents={objectType}
         fontFamily={fontFamily}
         fontSize={"16px"}
         fill={"grey"}
       />
-
-      <Group ref={objectRef}>
+      <Row ref={objectRef} spacing={0} alignment={'middle'}>
         {objectValues.map((elementData, index) => (
-          <Rect
-            name={`elm_${index}_${objectId}`}
-            height={60}
-            width={70}
-            fill={"#ffffc6"}
-            stroke={"grey"}
-          />
+          <ElmTuple tupleIndex={index} tupleData={elementData} objectId={objectId}/>
         ))}
-
-        {elementWithIndex.map((elementData) => (
-          <Text
-            name={`elmLabel_${elementData.order}_${objectId}`}
-            contents={`${elementData.order}`}
-            fontFamily={fontFamily}
-            fontSize={"16px"}
-            fill={"grey"}
-          />
-        ))}
-
-        {objectValues.map((elementData, index) =>
-          elementData.type == "string" ? (
-            <Text
-              name={`elmVal_${index}_${objectId}`}
-              contents={elementData.value}
-              fontSize={"24px"}
-              fill={"black"}
-            />
-          ) : (
-            <Text
-              name={`elmVal_${index}_${objectId}`}
-              contents={""}
-              fill={"none"}
-            />
-          )
-        )}
-
-        {allExceptElmZero.map((boxElement) => (
-          <Align left to={"centerRight"}>
-            <Ref to={`elm_${boxElement.order}_${objectId}`} />
-            <Ref to={`elm_${boxElement.order - 1}_${objectId}`} />
-          </Align>
-        ))}
-
-        {elementWithIndex.map((boxElement) => (
-          <Align center>
-            <Ref to={`elmVal_${boxElement.order}_${objectId}`} />
-            <Ref to={`elm_${boxElement.order}_${objectId}`} />
-          </Align>
-        ))}
-
-        {elementWithIndex.map((boxElement) => (
-          <Align topLeft>
-            <Ref to={`elmLabel_${boxElement.order}_${objectId}`} />
-            <Ref to={`elm_${boxElement.order}_${objectId}`} />
-          </Align>
-        ))}
-      </Group>
+      </Row>
 
       <Space vertically by={10}>
         <Ref to={objectTypeRef} />
@@ -899,6 +844,7 @@ const ObjectsV3 = forwardRef(function _Objects({ objectType, objectValues, objec
     </Group>
   );
 });
+
 render(
   <SVG width={500} height={100}>
     <ObjectsV3
