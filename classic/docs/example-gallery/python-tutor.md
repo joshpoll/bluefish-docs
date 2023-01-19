@@ -864,10 +864,7 @@ render(
 Once again, let's build Python Tutor with tuples of various types and lengths!
 
 ```tsx live noInline
-const PythonTutorV3 = forwardRef(function _PythonTutor(
-  { variables, objects, rows, opId },
-  ref
-) {
+const PythonTutorV3 = forwardRef(function _PythonTutor({ variables, objects, rows, opId }, ref) {
   const globalFrame = useRef(null);
   const rowRef = useRef(null);
 
@@ -908,11 +905,7 @@ const PythonTutorV3 = forwardRef(function _PythonTutor(
 
   return (
     <Group ref={ref} name={opId}>
-      <GlobalFrame
-        variables={variables}
-        opId={"globalFrame"}
-        ref={globalFrame}
-      />
+      <GlobalFrame variables={variables} opId={"globalFrame"} ref={globalFrame}/>
 
       <Group ref={rowRef} name={"rows"}>
         <Space name={"rowSpace"} vertically by={50}>
@@ -920,16 +913,8 @@ const PythonTutorV3 = forwardRef(function _PythonTutor(
             <Row name={`row${index}`} spacing={30} alignment={"middle"}>
               {level.nodes.map((obj) =>
                 obj == "" ? (
-                  <Rect
-                    name={"filler"}
-                    height={60}
-                    width={160}
-                    fill={"none"}
-                    stroke={"none"}
-                  />
-                ) : (
-                  <ObjectsV3 {...objMap.get(obj)} />
-                )
+                  <Rect name={"filler"} height={60} width={160} fill={"none"} stroke={"none"}/>
+                ) : (<ObjectsV3 {...objMap.get(obj)} />)
               )}
             </Row>
           ))}
