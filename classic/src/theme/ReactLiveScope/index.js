@@ -272,6 +272,21 @@ const ObjectsV2 = React.forwardRef(function _Objects({objectType, objectValues, 
 
 });
 
+const ElmTuple = React.forwardRef(function _ElmTuple({ tupleIndex, tupleData, objectId }, ref) {
+  const fontFamily = "verdana, arial, helvetica, sans-serif";
+  return (
+    <Bluefish.Group ref={ref} name={`elm_${tupleIndex}_${objectId}`}>
+      <Bluefish.Rect name={`elmBox_${tupleIndex}_${objectId}`} height={60} width={70} fill={"#ffffc6"} stroke={"grey"}/>
+      <Bluefish.Text name={`elmLabel_${tupleIndex}_${objectId}`} contents={`${tupleIndex}`} fontFamily={fontFamily} fontSize={"16px"} fill={"grey"}/>
+      {tupleData.type == "string" ? (
+        <Bluefish.Text name={`elmVal_${tupleIndex}_${objectId}`} contents={tupleData.value} fontSize={"24px"} fill={"black"}/>
+      ) : (<Bluefish.Text name={`elmVal_${tupleIndex}_${objectId}`} contents={""} fill={"none"}/>)}
+      <Bluefish.Align center><Bluefish.Ref to={`elmVal_${tupleIndex}_${objectId}`} /><Bluefish.Ref to={`elmBox_${tupleIndex}_${objectId}`} /></Bluefish.Align>
+      <Bluefish.Align topLeft><Bluefish.Ref to={`elmLabel_${tupleIndex}_${objectId}`} /><Bluefish.Ref to={`elmBox_${tupleIndex}_${objectId}`} /></Bluefish.Align>
+    </Bluefish.Group>
+  );
+});
+
 const ObjectsV3 = React.forwardRef(function _Objects({objectType, objectValues, objectId}, ref) {
   const objectTypeRef = React.useRef(null);
   const objectRef = React.useRef(null);
@@ -327,6 +342,7 @@ const ReactLiveScope = {
   Link,
   LinkV2,
   ObjectsV2,
+  ElmTuple,
   ObjectsV3,
 };
 export default ReactLiveScope;
