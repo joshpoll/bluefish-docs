@@ -16,14 +16,18 @@ It takes the following attributes:
 
 `y` (optional) - **Is this used?** -->
 
-
-If both the `spacing` and `totalHeight` attributes are defined, the component will resize all of its children to fit it into the total height while maintaining the given spacing.
+There are 3 possible ways of defining how the Column's children are spaced:
+1. If `spacing` is defined, it will space out the children evenly, each by the specified `spacing` attribute.
+2. If `totalHeight` is defined, it will space out the children evenly such that their total height is `totalHeight`.
+3. If both the `spacing` and `totalHeight` attributes are defined, the component will resize all of its children to fit it into the total height while maintaining the given spacing.
 
 An example of the syntax looks like this:
-```tsx
-<Col spacing={20} totalHeight={300} alignment={'center'}>
-    <BluefishComponent1 />
-    <BluefishComponent2 />
-    <BluefishComponent3 />
-</Col>
+```tsx live
+<SVG width={200} height={200}>
+  <Col spacing={20} alignment={'center'}>
+    <Circle r={25}/>
+    <Circle r={25}/>
+    <Circle r={25}/>
+  </Col>
+</SVG>
 ```

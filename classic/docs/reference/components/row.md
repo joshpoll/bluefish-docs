@@ -14,14 +14,19 @@ It takes the following attributes:
 
 `y` (optional) - **Is this used?** -->
 
+There are 3 possible ways of defining how the Rows's children are spaced:
+1. If `spacing` is defined, it will space out the children evenly, each by the specified `spacing` attribute.
+2. If `totalHeight` is defined, it will space out the children evenly such that their total height is `totalHeight`.
+3. If both the `spacing` and `totalHeight` attributes are defined, the component will resize all of its children to fit it into the total height while maintaining the given spacing.
 
-If both the `spacing` and `totalWidth` attributes are defined, the component will resize all of its children to fit it into the total width while maintaining the given spacing.
 
 An example of the syntax looks like this:
-```tsx
-<Row spacing={20} totalWidth={300} alignment={'middle'}>
-    <BluefishComponent1 />
-    <BluefishComponent2 />
-    <BluefishComponent3 />
-</Row>
+```tsx live
+<SVG width={200} height={100}>
+  <Row spacing={20} alignment={'middle'}>
+    <Circle r={25}/>
+    <Circle r={25}/>
+    <Circle r={25}/>
+  </Row>
+</SVG>
 ```
