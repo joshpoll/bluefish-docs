@@ -7,3 +7,5 @@ sidebar_position: 3
 TODO: replace `Dot` with a custom mark
 
 maybe just cut this section entirely...
+
+maybe turn labels into custom components
