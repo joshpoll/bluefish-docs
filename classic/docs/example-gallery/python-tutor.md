@@ -12,7 +12,7 @@ We can divide the components of this diagram into two groups: the components ass
 
 ## The Global Frame
 
-The Global Frame itself is a composition of various other components. In particular, the Global Frame contains some text components, some variables, and some components responsible for the styling if the output.
+The Global Frame itself is a composition of various other components. In particular, the Global Frame contains some text components, some variables, and some components responsible for the styling of the output.
 
 ### The Variable Sub-Component
 
