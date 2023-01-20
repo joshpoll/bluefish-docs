@@ -453,7 +453,7 @@ render(
 
 ## Generalizing Python Tutor
 
-Python Tutor diagrams are very flexible, and the content represented in the diagram can be very diverse. For example, objects could have arbitrary length. Objects themselves could simply store pointers to other primitive types. In the following sections, we will explore how to generalize the Bluefish Python Tutor diagram to flexibility handle these situations.
+Python Tutor diagrams are very flexible, and the content represented in the diagram can be very diverse. For example, objects could have arbitrary length. Objects themselves could simply store pointers to other primitive types. In the following sections, we will explore how to generalize the Bluefish Python Tutor diagram to handle these situations.
 
 ### Redefining the Components of the Object Type
 
