@@ -161,10 +161,7 @@ And with that, our global frame is complete! Let's now create the other part of 
 In the Python Tutor diagram, the objects that the global frame variables reference are represented as rectangles with a value and pointer to the next object in the sequence. First, let's create a subcomponent to represent the objects.
 
 ```tsx live noInline
-const Objects = forwardRef(function _Objects(
-  { nextObject, objectType, value, opId },
-  ref
-) {
+const Objects = forwardRef(function _Objects({ nextObject, objectType, value, opId }, ref) {
   const itemRef = useRef(null);
   const boxRef = useRef(null);
   const valueRef = useRef(null);
@@ -263,25 +260,35 @@ render(
 We can imagine that the objects are located in a grid, and we can specify the contents of each grid with a series of `Row` components. Therefore, our set of Objects is essentially a matrix.
 
 ```tsx live noInline
-const ObjectsMatrix = forwardRef(function _ObjectsMatrix(
-  { objects, rows },
-  ref
-) {
+const ObjectsMatrix = forwardRef(function _ObjectsMatrix({ objects, rows }, ref) {
   // lookup map for the yellow objects
   const objMap = new Map();
+  const objIdByCol = new Map();
+
+  rows.forEach((rowObject) => {
+    rowObject.nodes.forEach((node, index) => {
+      objIdByCol.set(index, (objIdByCol.has(index) ? objIdByCol.get(index) : []).concat([(node === "")? `row${rowObject.depth}_col${index}` : node]))
+      });
+  });
+
+  const cols = [];
+  objIdByCol.forEach((values, keys) => {
+    const columnObject = {depth: keys, nodes: values};
+    cols.push(columnObject);
+  });
+
   objects.forEach((obj) => objMap.set(obj.opId, obj));
 
   return (
     <Group ref={ref} name={"matrix-rows"}>
-      <Space name={"rowSpace"} vertically by={50}>
-        {rows.map((level, index) => (
+      {rows.map((level, index) => (
           <Row name={`row${index}`} spacing={50} alignment={"middle"}>
-            {level.nodes.map((obj) =>
+            {level.nodes.map((obj, objIndex) =>
               obj == "" ? (
                 <Rect
-                  name={"filler"}
+                  name={`row${level.depth}_col${objIndex}`}
                   height={60}
-                  width={160}
+                  width={140}
                   fill={"none"}
                   stroke={"none"}
                 />
@@ -291,7 +298,13 @@ const ObjectsMatrix = forwardRef(function _ObjectsMatrix(
             )}
           </Row>
         ))}
-      </Space>
+      {cols.map((columns, index) => (
+        <Col name={`col${index}`} spacing={50}>
+          {columns.nodes.map((objectId) => (
+            <Ref to={objectId} />
+          ))}     
+        </Col>
+      ))}
     </Group>
   );
 });
@@ -329,10 +342,7 @@ render(
 Now that we've created the two halves of our Python Tutor diagram, let's compose them together and add links between the global frame variables and the objects to complete our visualization!
 
 ```tsx live noInline
-const PythonTutor = forwardRef(function _PythonTutor(
-  { variables, objects, rows, opId },
-  ref
-) {
+const PythonTutor = forwardRef(function _PythonTutor({ variables, objects, rows, opId }, ref) {
   const globalFrame = useRef(null);
   const rowRef = useRef(null);
 
@@ -460,10 +470,7 @@ Python Tutor diagrams are very flexible, and the content represented in the diag
 First, let's modify our tuple Objects. We see that there are two cases we should consider: when the tuple is a pointer to another object, or when the tuple contains a value.
 
 ```tsx live noInline
-const ObjectsV2 = forwardRef(function _Objects(
-  { objectType, objectValues, objectId },
-  ref
-) {
+const ObjectsV2 = forwardRef(function _Objects({ objectType, objectValues, objectId }, ref) {
   // objectValues: list with two entries; first entry is type of first box, second entry is type of second box
 
   const objectTypeRef = useRef(null);
@@ -591,10 +598,7 @@ render(
 Now let's build Python Tutor again with our updated Object type!
 
 ```tsx live noInline
-const PythonTutorV2 = forwardRef(function _PythonTutor(
-  { variables, objects, rows, opId },
-  ref
-) {
+const PythonTutorV2 = forwardRef(function _PythonTutor({ variables, objects, rows, opId }, ref) {
   const globalFrame = useRef(null);
   const rowRef = useRef(null);
 
