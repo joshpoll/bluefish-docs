@@ -350,6 +350,22 @@ const PythonTutor = forwardRef(function _PythonTutor({ variables, objects, rows,
   const objMap = new Map();
   objects.forEach((obj) => objMap.set(obj.opId, obj));
 
+
+  // Lookup map for yellow objects by column
+  const objIdByCol = new Map();
+
+  rows.forEach((rowObject) => {
+    rowObject.nodes.forEach((node, index) => {
+      objIdByCol.set(index, (objIdByCol.has(index) ? objIdByCol.get(index) : []).concat([(node === "")? `row${rowObject.depth}_col${index}` : node]))
+      });
+  });
+
+  const cols = [];
+  objIdByCol.forEach((values, keys) => {
+    const columnObject = {depth: keys, nodes: values};
+    cols.push(columnObject);
+  });
+
   // find start and end location for links between objects and objects
   const objectLinks = objects
     .filter((object) => object.nextObject !== null)
@@ -380,16 +396,15 @@ const PythonTutor = forwardRef(function _PythonTutor({ variables, objects, rows,
         ref={globalFrame}
       />
 
-      <Group ref={rowRef} name={"rows"}>
-        <Space name={"rowSpace"} vertically by={50}>
-          {rows.map((level, index) => (
-            <Row name={`row${index}`} spacing={30} alignment={"middle"}>
-              {level.nodes.map((obj) =>
+      <Group ref={rowRef} name={"objects-matrix"}>
+        {rows.map((level, index) => (
+            <Row name={`row${index}`} spacing={50} alignment={"middle"}>
+              {level.nodes.map((obj, objIndex) =>
                 obj == "" ? (
                   <Rect
-                    name={"filler"}
+                    name={`row${level.depth}_col${objIndex}`}
                     height={60}
-                    width={160}
+                    width={140}
                     fill={"none"}
                     stroke={"none"}
                   />
@@ -399,7 +414,13 @@ const PythonTutor = forwardRef(function _PythonTutor({ variables, objects, rows,
               )}
             </Row>
           ))}
-        </Space>
+        {cols.map((columns, index) => (
+          <Col name={`col${index}`} spacing={50}>
+            {columns.nodes.map((objectId) => (
+              <Ref to={objectId} />
+            ))}     
+          </Col>
+        ))}
       </Group>
 
       <Space name={"space1"} horizontally by={60}>
@@ -606,6 +627,21 @@ const PythonTutorV2 = forwardRef(function _PythonTutor({ variables, objects, row
   const objMap = new Map();
   objects.forEach((obj) => objMap.set(obj.objectId, obj));
 
+  // lookup map for yellow objects grouped in columns
+  const objIdByCol = new Map();
+
+  rows.forEach((rowObject) => {
+    rowObject.nodes.forEach((node, index) => {
+      objIdByCol.set(index, (objIdByCol.has(index) ? objIdByCol.get(index) : []).concat([(node === "")? `row${rowObject.depth}_col${index}` : node]))
+      });
+  });
+
+  const cols = [];
+  objIdByCol.forEach((values, keys) => {
+    const columnObject = {depth: keys, nodes: values};
+    cols.push(columnObject);
+  });
+
   const objectValues = objects.map((object) => {
     const objectWithPointerInfo = object.objectValues.map((element, index) => {
       return { ...element, objectId: object.objectId, objectOrder: index };
@@ -645,16 +681,15 @@ const PythonTutorV2 = forwardRef(function _PythonTutor({ variables, objects, row
         ref={globalFrame}
       />
 
-      <Group ref={rowRef} name={"rows"}>
-        <Space name={"rowSpace"} vertically by={50}>
-          {rows.map((level, index) => (
-            <Row name={`row${index}`} spacing={30} alignment={"middle"}>
-              {level.nodes.map((obj) =>
+      <Group ref={rowRef} name={"objects-matrix"}>
+        {rows.map((level, index) => (
+            <Row name={`row${index}`} spacing={50} alignment={"middle"}>
+              {level.nodes.map((obj, objIndex) =>
                 obj == "" ? (
                   <Rect
-                    name={"filler"}
+                    name={`row${level.depth}_col${objIndex}`}
                     height={60}
-                    width={160}
+                    width={140}
                     fill={"none"}
                     stroke={"none"}
                   />
@@ -664,7 +699,13 @@ const PythonTutorV2 = forwardRef(function _PythonTutor({ variables, objects, row
               )}
             </Row>
           ))}
-        </Space>
+        {cols.map((columns, index) => (
+          <Col name={`col${index}`} spacing={50}>
+            {columns.nodes.map((objectId) => (
+              <Ref to={objectId} />
+            ))}     
+          </Col>
+        ))}
       </Group>
 
       <Space name={"space1"} horizontally by={60}>
@@ -869,6 +910,21 @@ const PythonTutorV3 = forwardRef(function _PythonTutor({ variables, objects, row
   const objMap = new Map();
   objects.forEach((obj) => objMap.set(obj.objectId, obj));
 
+  // lookup map for yellow objects grouped in columns
+  const objIdByCol = new Map();
+
+  rows.forEach((rowObject) => {
+    rowObject.nodes.forEach((node, index) => {
+      objIdByCol.set(index, (objIdByCol.has(index) ? objIdByCol.get(index) : []).concat([(node === "")? `row${rowObject.depth}_col${index}` : node]))
+      });
+  });
+
+  const cols = [];
+  objIdByCol.forEach((values, keys) => {
+    const columnObject = {depth: keys, nodes: values};
+    cols.push(columnObject);
+  });
+
   const objectValues = objects.map((object) => {
     const objectWithPointerInfo = object.objectValues.map((element, index) => {
       return { ...element, objectId: object.objectId, objectOrder: index };
@@ -904,18 +960,31 @@ const PythonTutorV3 = forwardRef(function _PythonTutor({ variables, objects, row
     <Group ref={ref} name={opId}>
       <GlobalFrame variables={variables} opId={"globalFrame"} ref={globalFrame}/>
 
-      <Group ref={rowRef} name={"rows"}>
-        <Space name={"rowSpace"} vertically by={50}>
-          {rows.map((level, index) => (
-            <Row name={`row${index}`} spacing={30} alignment={"middle"}>
-              {level.nodes.map((obj) =>
+      <Group ref={rowRef} name={"objects-matrix"}>
+        {rows.map((level, index) => (
+            <Row name={`row${index}`} spacing={50} alignment={"middle"}>
+              {level.nodes.map((obj, objIndex) =>
                 obj == "" ? (
-                  <Rect name={"filler"} height={60} width={160} fill={"none"} stroke={"none"}/>
-                ) : (<ObjectsV3 {...objMap.get(obj)} />)
+                  <Rect
+                    name={`row${level.depth}_col${objIndex}`}
+                    height={60}
+                    width={140}
+                    fill={"none"}
+                    stroke={"none"}
+                  />
+                ) : (
+                  <ObjectsV3 {...objMap.get(obj)} />
+                )
               )}
             </Row>
           ))}
-        </Space>
+        {cols.map((columns, index) => (
+          <Col name={`col${index}`} spacing={50}>
+            {columns.nodes.map((objectId) => (
+              <Ref to={objectId} />
+            ))}     
+          </Col>
+        ))}
       </Group>
 
       <Space name={"space1"} horizontally by={60}>
