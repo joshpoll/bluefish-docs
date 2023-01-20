@@ -12,7 +12,7 @@ We can divide the components of this diagram into two groups: the components ass
 
 ## The Global Frame
 
-The Global Frame itself is a composition of various other components. In particular, the Global Frame contains some text components, some variables, and some components responsible for the styling if the output.
+The Global Frame itself is a composition of various other components. In particular, the Global Frame contains some text components, some variables, and some components responsible for the styling of the output.
 
 ### The Variable Sub-Component
 
@@ -453,7 +453,7 @@ render(
 
 ## Generalizing Python Tutor
 
-Python Tutor diagrams are very flexible, and the content represented in the diagram can be very diverse. For example, objects could have arbitrary length. Objects themselves could simply store pointers to other primitive types. In the following sections, we will explore how to generalize the Bluefish Python Tutor diagram to flexibility handle these situations.
+Python Tutor diagrams are very flexible, and the content represented in the diagram can be very diverse. For example, objects could have arbitrary length. Objects themselves could simply store pointers to other primitive types. In the following sections, we will explore how to generalize the Bluefish Python Tutor diagram to handle these situations.
 
 ### Redefining the Components of the Object Type
 
@@ -741,7 +741,7 @@ render(
 );
 ```
 
-### Creating Objects of Arbitrarily Length
+### Creating Objects of Arbitrary Length
 
 In our implementation so far, we've been restricted to using tuple objects of length two (typically with a value in the first part of the object and a pointer in the second half). In this section, we will extend our concept of Objects even further by allowing Objects of arbitrary length.
 
@@ -804,7 +804,7 @@ render(
   </SVG>
 );
 ```
-Now that we've refactored the tuple element into a Bluefish element, let's rewrite Objects so that it can be arbitrary lengths.
+Now that we've refactored the tuple element into a Bluefish element, let's rewrite Objects so that it can have an arbitrary length.
 
 ```tsx live noInline
 const ObjectsV3 = forwardRef(function _Objects({ objectType, objectValues, objectId }, ref) {
