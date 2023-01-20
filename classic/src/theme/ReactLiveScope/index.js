@@ -161,7 +161,7 @@ export const splitAlignment = (alignment) => {
   return [verticalAlignment, horizontalAlignment];
 };
 
-const LinkV2 = Bluefish.withBluefishFn(
+const LinkV2 = ExecutionEnvironment.canUseDOM ? Bluefish.withBluefishFn(
   (props) => {
     return (measurables, constraints) => {
       const [from, to] = measurables.map((m) => m.measure(constraints));
@@ -213,7 +213,7 @@ const LinkV2 = Bluefish.withBluefishFn(
     const { $bbox, $from, $to, ...rest } = props;
     return (<line {...rest} x1={$bbox?.left ?? 0} x2={$bbox?.right ?? 0} y1={$bbox?.top ?? 0} y2={$bbox?.bottom ?? 0} />);
   },
-);
+) : undefined;
 
 const Link = React.forwardRef(function _Link({ opId, start, end }, ref) {
   const groupRef = React.useRef(null);
