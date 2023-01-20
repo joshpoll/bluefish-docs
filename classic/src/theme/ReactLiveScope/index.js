@@ -291,13 +291,6 @@ const ObjectsV3 = React.forwardRef(function _Objects({ objectType, objectValues,
   const objectTypeRef = React.useRef(null);
   const objectRef = React.useRef(null);
 
-  const elementWithIndex = objectValues.map((elementVals, index) => {
-    return { ...elementVals, order: index };
-  });
-  const allExceptElmZero = elementWithIndex.filter((elementData) => {
-    return elementData.order !== 0;
-  });
-
   const fontFamily = "verdana, arial, helvetica, sans-serif";
 
   return (

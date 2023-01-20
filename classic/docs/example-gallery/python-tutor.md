@@ -813,13 +813,6 @@ const ObjectsV3 = forwardRef(function _Objects({ objectType, objectValues, objec
   const objectTypeRef = useRef(null);
   const objectRef = useRef(null);
 
-  const elementWithIndex = objectValues.map((elementVals, index) => {
-    return { ...elementVals, order: index };
-  });
-  const allExceptElmZero = elementWithIndex.filter((elementData) => {
-    return elementData.order !== 0;
-  });
-
   const fontFamily = "verdana, arial, helvetica, sans-serif";
 
   return (
