@@ -741,7 +741,7 @@ render(
 );
 ```
 
-### Creating Objects of Arbitrarily Length
+### Creating Objects of Arbitrary Length
 
 In our implementation so far, we've been restricted to using tuple objects of length two (typically with a value in the first part of the object and a pointer in the second half). In this section, we will extend our concept of Objects even further by allowing Objects of arbitrary length.
 
