@@ -804,7 +804,7 @@ render(
   </SVG>
 );
 ```
-Now that we've refactored the tuple element into a Bluefish element, let's rewrite Objects so that it can be arbitrary lengths.
+Now that we've refactored the tuple element into a Bluefish element, let's rewrite Objects so that it can have an arbitrary length.
 
 ```tsx live noInline
 const ObjectsV3 = forwardRef(function _Objects({ objectType, objectValues, objectId }, ref) {
