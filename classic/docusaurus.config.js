@@ -82,7 +82,7 @@ const config = {
             label: 'Example Gallery'
           },
           {
-            href: 'https://github.com/joshpoll/bluefish',
+            href: 'https://github.com/[redacted]/bluefish',
             label: 'GitHub',
             position: 'right',
           },
@@ -103,7 +103,7 @@ const config = {
           {
             title: 'Community',
             items: [
-              { label: 'Coming Soon...', href: 'https://github.com/joshpoll/bluefish' },
+              { label: 'Coming Soon...', href: 'https://github.com/[redacted]/bluefish' },
               // {
               //   label: 'Stack Overflow',
               //   href: 'https://stackoverflow.com/questions/tagged/docusaurus',
@@ -127,12 +127,12 @@ const config = {
               // },
               {
                 label: 'GitHub',
-                href: 'https://github.com/joshpoll/bluefish',
+                href: 'https://github.com/[redacted]/bluefish',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Josh Pollock. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} [REDACTED]. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
