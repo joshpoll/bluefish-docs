@@ -2,89 +2,88 @@
 sidebar_position: 1
 ---
 
-import { Sandpack } from "@codesandbox/sandpack-react";
-import { app_test, indexjs, indexhtml } from "./code.ts";
+import { Sandpack, SandpackProvider, SandpackCodeEditor, SandpackPreview } from "@codesandbox/sandpack-react";
+import { app_test, indexjs, indexhtml, planets } from "./code.ts";
+import { CodeEditor } from "./CodeEditor";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
-# Tutorial Intro
+# Get Started
 
-Let's discover **Bluefish in less than 5 minutes**.
+If you just want to play around with Bluefish, feel free to edit or fork the sandbox below!
 
-<!-- "/App.jsx": app_test, -->
+(Hint: Try changing the spacing between the planets.)
 
-<Sandpack
-  dependencies={{
-    "@bluefish-js/solid": "latest",
-    "babel-preset-solid": "latest",
-    "solid-js": "latest",
-  }}
-  devDependencies={{
-    "@babel/core": "7.2.0",
-    "parcel-bundler": "^1.6.1",
-  }}
-  environment="parcel"
-  options={{
-    visibleFiles: ["/App.js"],
-    activeFile: "/App.js",
-  }}
-  files={{
-    "/App.js": app_test,
-    "/index.js": indexjs,
-    "/index.html": indexhtml,
-    "/package.json": {
-      code: JSON.stringify({
-        name: "solid-hello-world",
-        version: "1.0.0",
-        description: "",
-        main: "index.html",
-        scripts: {
-          start: "parcel index.html --open",
-          build: "parcel build index.html",
-        },
-        dependencies: {
-          "@bluefish-js/solid": "latest",
-          "babel-preset-solid": "latest",
-          "solid-js": "latest",
-        },
-        devDependencies: {
-          "@babel/core": "7.2.0",
-          "parcel-bundler": "^1.6.1",
-        },
-        keywords: [],
-      }),
-    },
-    "/.babelrc": {
-      code: JSON.stringify({
-        presets: ["babel-preset-solid"],
-      }),
-    },
-  }}
-/>
+<CodeEditor code={planets} />
 
-## Getting Started
+You can also use the SolidJS REPL: https://playground.solidjs.com/anonymous/9f920dfc-07b3-45d5-9a9f-7d16df92438c.
 
-Read on to learn how to add Bluefish to your project.
+# Installation
 
-Or to **try Bluefish immediately**, jump to our **[getting started guide](./tutorial-diagrams/bluefish-1)**.
+Bluefish is built on [SolidJS](https://www.solidjs.com/) and works best in that environment. But it can be used in other environments, too.
 
-### What you'll need
+## Create a New SolidJS Project
 
-- [SolidJS](https://www.solidjs.com/)
+**TODO**
 
-## Install Bluefish
+## Add to an Existing SolidJS Project
 
-Bluefish is compatible with both JavaScript and TypeScript projects. To install, use one of the
-following commands.
+To add Bluefish to an existing SolidJS project, you can install it with your favorite package manager.
 
-### npm
+<Tabs
+  defaultValue="npm"
+  values={[
+    { label: "npm", value: "npm" },
+    { label: "yarn", value: "yarn" },
+    { label: "pnpm", value: "pnpm" },
+  ]}
+>
+  {/* prettier-ignore */}
+  <TabItem value="npm">
 
 ```bash
-npm i @bluefish-js/solid
+npm install @bluefish-js/solid
 ```
 
-### yarn
+  </TabItem>
+  {/* prettier-ignore */}
+  <TabItem value="yarn">
 
 ```bash
 yarn add @bluefish-js/solid
 ```
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+  </TabItem>
+  {/* prettier-ignore */}
+  <TabItem value="pnpm">
+
+```bash
+pnpm add @bluefish-js/solid
+```
+
+  </TabItem>
+</Tabs>
+
+## Use Bluefish on Other Platforms
+
+In other environments, you can still use Bluefish, but without the SolidJS compiler and JSX syntax.
+Bluefish components can be used in these environments under the exported `Hyperscript` namespace.
+
+For simple diagrams, the Hyperscript API isn't too different from JSX. For more advanced uses, [read
+about the
+differences](https://github.com/solidjs/solid/tree/main/packages/solid/h#solid-hyperscript).
+
+### Observable
+
+Here's a starter notebook: https://observablehq.com/@joshpoll/bluefish-in-observable.
+
+<iframe
+  width="100%"
+  height="261"
+  frameBorder="0"
+  src="https://observablehq.com/embed/@joshpoll/bluefish-in-observable@37?cells=planets"
+/>
+
+### Svelte
+
+Here's a starter REPL: https://svelte.dev/repl/1fa5bf8713ac4fc2a991560e50564932?version=4.2.1.

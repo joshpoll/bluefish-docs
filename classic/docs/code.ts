@@ -1,7 +1,5 @@
-import fileContent from "!!raw-loader!./app_test.tsx";
-
-// console.log(fileContent);
-export const app_test = fileContent;
+export { default as app_test } from "!!raw-loader!./app_test.tsx";
+export { default as planets } from "!!raw-loader!./planets.tsx";
 
 export const indexjs = `import { render } from "solid-js/web";
 import App from "./App";
