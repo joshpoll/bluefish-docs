@@ -6,6 +6,7 @@ export type CodeEditorProps = {
   code: string;
   onCodeChange?: (code: string) => void;
   hideCode?: boolean;
+  flip?: boolean;
 };
 
 const SandpackCustomEditor = (props: CodeEditorProps) => {
@@ -19,8 +20,17 @@ const SandpackCustomEditor = (props: CodeEditorProps) => {
 
   return (
     <div>
-      <SandpackPreview style={{ height: 300 }} />
-      {props.hideCode ? null : <SandpackCodeEditor />}
+      {props.flip ? (
+        <>
+          {props.hideCode ? null : <SandpackCodeEditor />}
+          <SandpackPreview style={{ height: 300 }} />
+        </>
+      ) : (
+        <>
+          <SandpackPreview style={{ height: 300 }} />
+          {props.hideCode ? null : <SandpackCodeEditor />}
+        </>
+      )}
     </div>
   );
 };
@@ -75,10 +85,6 @@ export const CodeEditor = (props: CodeEditorProps) => {
         },
       }}
     >
-      {/* <div>
-        <SandpackPreview style={{ height: 300 }} />
-        <SandpackCodeEditor />
-      </div> */}
       <SandpackCustomEditor {...props} />
     </SandpackProvider>
   );

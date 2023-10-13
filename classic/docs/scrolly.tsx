@@ -22,16 +22,18 @@ const Scrolly = ({ children }: ScrollyProps) => {
       style={{
         display: "grid",
         gridTemplateColumns: "50% 50%" /* , border: "2px dashed skyblue"  */,
+        marginTop: "10vh",
       }}
     >
       {/* Left side with Scrollama steps */}
       <div>
-        <Scrollama offset={0.5} onStepEnter={onStepEnter}>
+        <Scrollama offset={0.3} onStepEnter={onStepEnter}>
           {React.Children.map(children, (child, index) => (
             <Step data={index} key={index}>
               <div
                 style={{
                   // margin: "50vh 0",
+                  marginTop: index === 0 ? "10vh" : "0",
                   marginBottom: "20vh",
                   // border: "1px solid gray",
                   opacity: currentStepIndex === index ? 1 : 0.2,
@@ -59,6 +61,7 @@ const Scrolly = ({ children }: ScrollyProps) => {
           onCodeChange={(code) => {
             setCode(code);
           }}
+          flip
         />
       </div>
     </div>
