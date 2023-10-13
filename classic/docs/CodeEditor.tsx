@@ -1,9 +1,28 @@
-import { SandpackProvider, SandpackCodeEditor, SandpackPreview } from "@codesandbox/sandpack-react";
-import React from "react";
+import { SandpackProvider, SandpackCodeEditor, SandpackPreview, useSandpack } from "@codesandbox/sandpack-react";
+import React, { useEffect } from "react";
 import { indexhtml, indexjs } from "./code";
 
 export type CodeEditorProps = {
   code: string;
+  onCodeChange?: (code: string) => void;
+  hideCode?: boolean;
+};
+
+const SandpackCustomEditor = (props: CodeEditorProps) => {
+  const { sandpack } = useSandpack();
+
+  useEffect(() => {
+    if (props.onCodeChange) {
+      props.onCodeChange(sandpack.files["/App.js"].code);
+    }
+  }, [sandpack.files["/App.js"].code]);
+
+  return (
+    <div>
+      <SandpackPreview style={{ height: 300 }} />
+      {props.hideCode ? null : <SandpackCodeEditor />}
+    </div>
+  );
 };
 
 export const CodeEditor = (props: CodeEditorProps) => {
@@ -56,10 +75,11 @@ export const CodeEditor = (props: CodeEditorProps) => {
         },
       }}
     >
-      <div>
+      {/* <div>
         <SandpackPreview style={{ height: 300 }} />
         <SandpackCodeEditor />
-      </div>
+      </div> */}
+      <SandpackCustomEditor {...props} />
     </SandpackProvider>
   );
 };

@@ -3,12 +3,12 @@ sidebar_position: 1
 ---
 
 import { Sandpack, SandpackProvider, SandpackCodeEditor, SandpackPreview } from "@codesandbox/sandpack-react";
-import { app_test, indexjs, indexhtml, planets } from "./code.ts";
-import { CodeEditor } from "./CodeEditor";
+import { app_test, indexjs, indexhtml, planets } from "../code.ts";
+import { CodeEditor } from "../CodeEditor";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-# Get Started
+# Run Bluefish
 
 If you just want to play around with Bluefish, feel free to edit or fork the sandbox below!
 
@@ -18,15 +18,39 @@ If you just want to play around with Bluefish, feel free to edit or fork the san
 
 You can also use the SolidJS REPL: https://playground.solidjs.com/anonymous/9f920dfc-07b3-45d5-9a9f-7d16df92438c.
 
-# Installation
+## Run Bluefish on Other Platforms
+
+In other environments, you can still use Bluefish, but without the SolidJS compiler and JSX syntax.
+Bluefish components can be used in these environments under the exported `Hyperscript` namespace.
+
+For simple diagrams, the Hyperscript API isn't too different from JSX. For more advanced uses, [read
+about the
+differences](https://github.com/solidjs/solid/tree/main/packages/solid/h#solid-hyperscript).
+
+### Observable
+
+Here's a starter notebook: https://observablehq.com/@joshpoll/bluefish-in-observable.
+
+<iframe
+  width="100%"
+  height="261"
+  frameBorder="0"
+  src="https://observablehq.com/embed/@joshpoll/bluefish-in-observable@37?cells=planets"
+/>
+
+### Svelte
+
+Here's a starter REPL: https://svelte.dev/repl/1fa5bf8713ac4fc2a991560e50564932?version=4.2.1.
+
+## Install Bluefish Locally
 
 Bluefish is built on [SolidJS](https://www.solidjs.com/) and works best in that environment. But it can be used in other environments, too.
 
-## Create a New SolidJS Project
+### Create a New SolidJS Project
 
 **TODO**
 
-## Add to an Existing SolidJS Project
+### Add to an Existing SolidJS Project
 
 To add Bluefish to an existing SolidJS project, you can install it with your favorite package manager.
 
@@ -63,27 +87,3 @@ pnpm add @bluefish-js/solid
 
   </TabItem>
 </Tabs>
-
-## Use Bluefish on Other Platforms
-
-In other environments, you can still use Bluefish, but without the SolidJS compiler and JSX syntax.
-Bluefish components can be used in these environments under the exported `Hyperscript` namespace.
-
-For simple diagrams, the Hyperscript API isn't too different from JSX. For more advanced uses, [read
-about the
-differences](https://github.com/solidjs/solid/tree/main/packages/solid/h#solid-hyperscript).
-
-### Observable
-
-Here's a starter notebook: https://observablehq.com/@joshpoll/bluefish-in-observable.
-
-<iframe
-  width="100%"
-  height="261"
-  frameBorder="0"
-  src="https://observablehq.com/embed/@joshpoll/bluefish-in-observable@37?cells=planets"
-/>
-
-### Svelte
-
-Here's a starter REPL: https://svelte.dev/repl/1fa5bf8713ac4fc2a991560e50564932?version=4.2.1.

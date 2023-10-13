@@ -1,0 +1,96 @@
+---
+sidebar_position: 2
+hide_table_of_contents: true
+---
+
+import { Sandpack, SandpackProvider, SandpackCodeEditor, SandpackPreview } from "@codesandbox/sandpack-react";
+import { app_test, indexjs, indexhtml, planets } from "../code.ts";
+import { CodeEditor } from "../CodeEditor";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import Scrolly from "../scrolly";
+import Step from "../step";
+
+# Learn Bluefish
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "50% 50%" /* , border: "2px dashed skyblue"  */,
+  }}
+>
+
+<div>
+In this short tutorial, you'll learn how to use Bluefish to make the planets diagram!
+
+The planets diagram consists of a row of four circles that represent the first four terrestrial
+planets. There is box behind them and a label for Mercury. There is also an arrow pointing from the
+label to Mercury.
+
+</div>
+
+<div>
+  <CodeEditor code={planets} hideCode />
+</div>
+</div>
+
+<Scrolly>
+  <Step>
+
+## 1. Make a Circle
+
+It's time to add your first Bluefish component!
+The first thing we'll do is draw the planet Mercury.
+Replace the `Text` component in the editor with the code below.
+
+```tsx
+<Circle cx={20} cy={30} r={15} fill="#EBE3CF" stroke-width={3} stroke="black" />
+```
+
+  </Step>
+  <Step>
+
+## 2. Put Circles in a Row
+
+filler text filler text filler text filler text
+filler text filler text filler text filler text
+filler text filler text filler text filler text
+
+  </Step>
+  <Step>
+
+## 3. Name Mercury
+
+filler text filler text filler text filler text
+filler text filler text filler text filler text
+filler text filler text filler text filler text
+
+  </Step>
+  <Step>
+
+## 4. Add a Label
+
+filler text filler text filler text filler text
+filler text filler text filler text filler text
+filler text filler text filler text filler text
+
+  </Step>
+  <Step>
+
+## 5. Add a Background
+
+filler text filler text filler text filler text
+filler text filler text filler text filler text
+filler text filler text filler text filler text
+
+  </Step>
+  <Step>
+
+## 6. Add an Arrow
+
+filler text filler text filler text filler text
+filler text filler text filler text filler text
+filler text filler text filler text filler text
+
+  </Step>
+</Scrolly>
