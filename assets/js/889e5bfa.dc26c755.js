@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkclassic=self.webpackChunkclassic||[]).push([[6462],{1138:e=>{e.exports=JSON.parse('{"title":"Get Started","description":"Learn how to use Bluefish","slug":"/category/get-started","permalink":"/docs/category/get-started","navigation":{"next":{"title":"Run Bluefish","permalink":"/docs/get-started/run"}}}')}}]);
