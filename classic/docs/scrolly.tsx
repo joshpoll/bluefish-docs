@@ -1,12 +1,15 @@
-import React, { PropsWithChildren, useState } from "react";
+import React, { PropsWithChildren, memo, useState } from "react";
 import { Scrollama, Step } from "react-scrollama";
 import ScrollamaStep from "./step";
 import { CodeEditor } from "./CodeEditor";
-import { learn } from "./code";
 
-export type ScrollyProps = PropsWithChildren<{}>;
+export type ScrollyProps = PropsWithChildren<{
+  starterCode: string;
+}>;
 
-const Scrolly = ({ children }: ScrollyProps) => {
+const MemoCodeEditor = memo(CodeEditor);
+
+const Scrolly = ({ starterCode, children }: ScrollyProps) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   // This callback fires when a Step hits the offset threshold. It receives the
@@ -14,8 +17,6 @@ const Scrolly = ({ children }: ScrollyProps) => {
   const onStepEnter = ({ data }) => {
     setCurrentStepIndex(data);
   };
-
-  const [code, setCode] = useState(learn);
 
   return (
     <div
@@ -56,13 +57,7 @@ const Scrolly = ({ children }: ScrollyProps) => {
           height: "100vh",
         }}
       >
-        <CodeEditor
-          code={code}
-          onCodeChange={(code) => {
-            setCode(code);
-          }}
-          flip
-        />
+        <MemoCodeEditor code={starterCode} flip />
       </div>
     </div>
   );

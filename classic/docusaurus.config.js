@@ -68,7 +68,7 @@ const config = {
             type: "doc",
             docId: "get-started/run",
             position: "left",
-            label: "Tutorial",
+            label: "Get Started",
           },
           {
             type: "docSidebar",
@@ -96,7 +96,7 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Tutorial",
+                label: "Get Started",
                 to: "/docs/get-started/run",
               },
             ],

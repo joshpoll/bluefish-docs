@@ -1,23 +1,7 @@
 export { default as app_test } from "!!raw-loader!./app_test.tsx";
 export { default as planets } from "!!raw-loader!./planets.tsx";
-// export { default as learn } from "!!raw-loader!./learn.tsx";
+export { default as learn } from "!!raw-loader!./learn.tsx";
 export { default as slider } from "!!raw-loader!./slider-test.tsx";
-export const learn = `import { Bluefish, Group, Row, Circle,
-  Text, Ref, Background, Arrow,
-  Align, Distribute } from "@bluefish-js/solid";
-
-const App = () => {
-  return (
-    <Bluefish id="bluefish-planets" padding={20}>
-      <Group x={10} y={10}>
-        <Text>TODO: Starting writing your code here!</Text>
-      </Group>
-    </Bluefish>
-  );
-};
-
-export default App;
-`;
 
 export const indexjs = `import { render } from "solid-js/web";
 import App from "./App";

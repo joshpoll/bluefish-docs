@@ -4,7 +4,7 @@ hide_table_of_contents: true
 ---
 
 import { Sandpack, SandpackProvider, SandpackCodeEditor, SandpackPreview } from "@codesandbox/sandpack-react";
-import { app_test, indexjs, indexhtml, planets } from "../code.ts";
+import { app_test, indexjs, indexhtml, planets, learn } from "../code.ts";
 import { CodeEditor } from "../CodeEditor";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -36,7 +36,7 @@ label to Mercury.
 </div>
 <hr />
 
-<Scrolly>
+<Scrolly starterCode={learn}>
   <Step>
 
 ## 1. Make a Circle
@@ -52,7 +52,56 @@ Replace the `Text` component in the editor with the code below.
   </Step>
   <Step>
 
-## 2. Put Circles in a Row
+### 2. Add the Other Planets
+
+Now we can add the other planets. Append this code below the Mercury circle.
+
+```tsx
+<Circle cx={100} cy={30} r={36} fill="#DC933C" stroke-width={3} stroke="black" />
+<Circle cx={160} cy={30} r={38} fill="#179DD7" stroke-width={3} stroke="black" />
+<Circle cx={280} cy={30} r={21} fill="#F1CF8E" stroke-width={3} stroke="black" />
+```
+
+:::info
+
+It's hard to make the circles evenly spaced by hand. See if you can do it!
+
+:::
+
+</Step>
+<Step>
+
+## 3. Put Circles in a Row
+
+Instead of placing the circles manually, we can use a `Row` component to position them.
+Add the `Row` component to the diagram and put the `Circle`s inside it.
+
+```tsx
+<Row spacing={50}>{/* circles go here */}</Row>
+```
+
+Then delete the positions (`cx` and `cy`) on the `Circle`s. For example,
+
+```tsx
+<Circle cx={20} cy={30} r={15} fill="#EBE3CF" stroke-width={3} stroke="black" />
+```
+
+should become
+
+```tsx
+<Circle r={15} fill="#EBE3CF" stroke-width={3} stroke="black" />
+```
+
+:::info
+
+Try changing the spacing or the size of the circles. What happens?
+
+:::
+
+  </Step>
+  <Step>
+
+## 4. Add a Background
 
 filler text filler text filler text filler text
 filler text filler text filler text filler text
@@ -61,25 +110,7 @@ filler text filler text filler text filler text
   </Step>
   <Step>
 
-## 3. Name Mercury
-
-filler text filler text filler text filler text
-filler text filler text filler text filler text
-filler text filler text filler text filler text
-
-  </Step>
-  <Step>
-
-## 4. Add a Label
-
-filler text filler text filler text filler text
-filler text filler text filler text filler text
-filler text filler text filler text filler text
-
-  </Step>
-  <Step>
-
-## 5. Add a Background
+## 5. Add a Label
 
 filler text filler text filler text filler text
 filler text filler text filler text filler text
