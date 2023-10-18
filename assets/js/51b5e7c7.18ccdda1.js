@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkclassic=self.webpackChunkclassic||[]).push([[7619],{5983:e=>{e.exports=JSON.parse('{"title":"Components","description":"Learn about built in Bluefish Components","slug":"/category/components-1","permalink":"/docs/category/components-1","navigation":{"next":{"title":"Align","permalink":"/docs/reference/components/align"}}}')}}]);
