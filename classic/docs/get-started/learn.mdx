@@ -28,6 +28,13 @@ The planets diagram consists of a row of four circles that represent the first f
 planets. There is box behind them and a label for Mercury. There is also an arrow pointing from the
 label to Mercury.
 
+:::info
+
+The tutorial assumes familiarity with JSX and basic JavaScript.
+If you're not familiar with JSX, you can learn about it: https://react.dev/learn/writing-markup-with-jsx.
+
+:::
+
 </div>
 
 <div >
@@ -103,27 +110,87 @@ Try changing the spacing or the size of the circles. What happens?
 
 ## 4. Add a Background
 
-filler text filler text filler text filler text
-filler text filler text filler text filler text
-filler text filler text filler text filler text
+To add a background, we can wrap the `Row` in a `Background` component.
+
+```tsx
+<Background padding={20}>{/* row goes here */}</Background>
+```
 
   </Step>
   <Step>
 
 ## 5. Add a Label
 
-filler text filler text filler text filler text
-filler text filler text filler text filler text
-filler text filler text filler text filler text
+Now it's time to add a label to the Mercury circle. So far, we've been building a hierarchical tree
+of components. But now we need to reference the circle that's in the row in order to position it.
+
+To do so, we'll first _name_ the circle, then we'll _reference_ it later in the code. To name the
+first circle in the row, we'll add an `id` prop to it.
+
+```tsx
+<Circle id="mercury" ... />
+```
+
+Then we can add a label by making a `Col` with `Text` for the label and a `Ref` to the planet.
+
+```tsx
+<Col spacing={20}>
+  <Text>Mercury</Text>
+  <Ref refId="mercury" />
+</Col>
+```
 
   </Step>
   <Step>
 
 ## 6. Add an Arrow
 
-filler text filler text filler text filler text
-filler text filler text filler text filler text
-filler text filler text filler text filler text
+Now let's draw an arrow from the label to the planet. To do so, we'll first name the label:
+
+```tsx
+<Text id="label">Mercury</Text>
+```
+
+Then we'll add an `Arrow` component:
+
+```tsx
+<Arrow>
+  <Ref refId="label" />
+  <Ref refId="mercury" />
+</Arrow>
+```
+
+  </Step>
+  <Step>
+
+## 7. Improve the label spacing.
+
+We want the label to always be outside the background box, but right now the label is spaced
+relative to the planet. We can replace the `Col` component with horizontal `Align` and vertical
+`Distribute` to position the label more precisely.
+
+First, replace the `Col` component with an `Align`.
+
+```tsx
+<Align alignment="centerX">{/* Keep the same children as Col */}</Align>
+```
+
+Then we'll name the planets:
+
+```tsx
+<Background id="planets" ... >
+  ...
+</Background>
+```
+
+Then add a `Distribute`.
+
+```tsx
+<Distribute direction="vertical" spacing={20}>
+  <Ref refId="label" />
+  <Ref refId="planets" />
+</Distribute>
+```
 
   </Step>
 </Scrolly>

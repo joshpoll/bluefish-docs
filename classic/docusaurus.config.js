@@ -83,9 +83,22 @@ const config = {
             label: "Example Gallery",
           },
           {
-            href: "https://github.com/[redacted]/bluefish",
-            label: "GitHub",
             position: "right",
+            type: "html",
+            value: `
+            <a href="https://github.com/bluefishjs/rockfish" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <img src="/img/github-logo.svg" alt="GitHub" style="height: 20px;" />
+            </a>
+          `,
+          },
+          {
+            position: "right",
+            type: "html",
+            value: `
+            <a href="https://discord.gg/RTKDYBBybB" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+              <img src="/img/discord-logo.svg" alt="Discord" style="height: 20px;" />
+            </a>
+          `,
           },
         ],
       },
@@ -105,8 +118,8 @@ const config = {
             title: "Community",
             items: [
               {
-                label: "Coming Soon...",
-                href: "https://github.com/[redacted]/bluefish",
+                label: "Join our Discord!",
+                href: "https://discord.gg/RTKDYBBybB",
               },
               // {
               //   label: 'Stack Overflow',
@@ -130,8 +143,8 @@ const config = {
               //   to: '/blog',
               // },
               {
-                label: "GitHub",
-                href: "https://github.com/[redacted]/bluefish",
+                label: "Star Us on GitHub!",
+                href: "https://github.com/bluefishjs/rockfish",
               },
             ],
           },
