@@ -27,7 +27,7 @@ const SandpackCustomEditor = (props: CodeEditorProps) => {
         </>
       ) : (
         <>
-          <SandpackPreview style={{ height: 300, width: 500 }} />
+          <SandpackPreview style={{ height: 210, width: 445 }} />
           {props.hideCode ? null : <SandpackCodeEditor />}
         </>
       )}

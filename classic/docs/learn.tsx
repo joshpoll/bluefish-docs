@@ -2,7 +2,7 @@ import { Bluefish, Group, Row, Circle, Text, Ref, Background, Arrow, Col, Align,
 
 const App = () => {
   return (
-    <Bluefish padding={20}>
+    <Bluefish>
       <Text>TODO: Starting writing your code here!</Text>
     </Bluefish>
   );
