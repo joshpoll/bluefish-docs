@@ -23,11 +23,11 @@ const SandpackCustomEditor = (props: CodeEditorProps) => {
       {props.flip ? (
         <>
           {props.hideCode ? null : <SandpackCodeEditor />}
-          <SandpackPreview style={{ height: 300 }} />
+          <SandpackPreview style={{ height: 300, width: 500 }} />
         </>
       ) : (
         <>
-          <SandpackPreview style={{ height: 300 }} />
+          <SandpackPreview style={{ height: 300, width: 500 }} />
           {props.hideCode ? null : <SandpackCodeEditor />}
         </>
       )}

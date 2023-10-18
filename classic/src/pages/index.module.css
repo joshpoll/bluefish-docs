@@ -5,7 +5,7 @@
 
 .heroBanner {
   padding: 4rem 0;
-  text-align: center;
+  text-align: left;
   position: relative;
   overflow: hidden;
 }
@@ -20,4 +20,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between; /* or 'flex-start' if you don't want them to take up the full space */
+  align-items: center; /* if you want vertical alignment as well */
+}
+
+.leftContent {
+  /* Styles for your content div, if needed */
+}
+
+.rightContent {
+  max-width: 50%; /* Adjust based on your preference */
+  /* Other styling as necessary, like padding or margin */
+}
+
+.rightContent img {
+  max-width: 100%; /* Makes sure your image doesn’t exceed the parent width */
+  height: auto; /* Maintain aspect ratio */
 }

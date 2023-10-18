@@ -80,7 +80,7 @@ const config = {
             type: "docSidebar",
             position: "left",
             sidebarId: "exampleGallery",
-            label: "Example Gallery",
+            label: "Examples",
           },
           {
             position: "right",
@@ -111,6 +111,14 @@ const config = {
               {
                 label: "Get Started",
                 to: "/docs/get-started/run",
+              },
+              {
+                label: "Reference",
+                to: "/docs/category/components",
+              },
+              {
+                label: "Examples",
+                to: "/docs/example-gallery/python-tutor",
               },
             ],
           },

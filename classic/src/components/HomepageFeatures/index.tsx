@@ -1,47 +1,28 @@
-import React from 'react';
-import clsx from 'clsx';
-import styles from './styles.module.css';
+import React from "react";
+import clsx from "clsx";
+import styles from "./styles.module.css";
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
+  Svg: React.ComponentType<React.ComponentProps<"svg">>;
   description: JSX.Element;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Annotate your visualizations',
-    Svg: require('@site/static/img/bluefish logo transparent - no bubbles.svg').default,
-    description: (
-      <>
-        Add chart annotations like labels, highlights, and strikethroughs that give personality and context to your visualizations.
-      </>
-    ),
+    title: "Create Diagrams with Components",
+    Svg: require("@site/static/img/bluefish logo transparent - no bubbles.svg").default,
+    description: <>Use familiar abstractions from UI frameworks to make diagrams and visualizations.</>,
   },
   {
-    title: 'Adapt to any screen size',
-    Svg: require('@site/static/img/bluefish logo transparent - no bubbles.svg').default,
-    description: (
-      <>
-        Write size-aware visualizations that look great on desktop, mobile, and in print.
-      </>
-    ),
+    title: "Build Custom Components",
+    Svg: require("@site/static/img/bluefish logo transparent - no bubbles.svg").default,
+    description: <>Compose components together to make new elements that can be used like built-in components.</>,
   },
   {
-    title: 'Build your own visualization library',
-    Svg: require('@site/static/img/bluefish logo transparent - no bubbles.svg').default,
-    description: (
-      <>
-        Your domain has its own visual vocabulary and style. 
-        Bluefish lets you build a personal visualization library that fits your needs.
-{/* 
-        Every visualization is a React component, so you can build your own library of reusable components.
-        
-         As you build more and more visualizations, you will find yourself naturally creating a bank of reusable components, your own charting library.
-        
-        Bluefish lets you express it in your own terms. */}
-      </>
-    ),
+    title: "Extensible Layout System",
+    Svg: require("@site/static/img/bluefish logo transparent - no bubbles.svg").default,
+    description: <>Extend Bluefish with your own layout algorithms using our layout API.</>,
   },
   // {
   //   title: 'Overlapping Layout',
@@ -75,9 +56,9 @@ const FeatureList: FeatureItem[] = [
   // },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, Svg, description }: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx("col col--4")}>
       <div className="text--center">
         <Svg className={styles.featureSvg} role="img" />
       </div>
