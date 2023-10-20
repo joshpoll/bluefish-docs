@@ -58,7 +58,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "Bluefish (Beta)",
+        title: "Bluefish (Alpha)",
         logo: {
           alt: "Bluefish Logo",
           src: "img/bluefish logo transparent - no bubbles.svg",
