@@ -1,6 +1,15 @@
 export { default as app_test } from "!!raw-loader!./app_test.tsx";
 export { default as planets } from "!!raw-loader!./planets.tsx";
+export { default as planetsNoComments } from "!!raw-loader!./planets-no-comments.tsx";
+export { default as planetsMarsAnnotation } from "!!raw-loader!./planets-variations/planets-mars-annotation.tsx";
+export { default as planetsConditionalAnnotation } from "!!raw-loader!./planets-variations/planets-conditional-annotation.tsx";
+export { default as planetsBackgroundAnnotation } from "!!raw-loader!./planets-variations/planets-background-annotation.tsx";
+export { default as planetsCol } from "!!raw-loader!./planets-variations/planets-col.tsx";
+export { default as planetsAnnotationUnderneath } from "!!raw-loader!./planets-variations/planets-annotation-underneath.tsx";
 export { default as learn } from "!!raw-loader!./learn.tsx";
+export { default as intermediate } from "!!raw-loader!./intermediate.tsx";
+export { default as intermediate2 } from "!!raw-loader!./intermediate2.tsx";
+export { default as intermediate3 } from "!!raw-loader!./intermediate3.tsx";
 export { default as slider } from "!!raw-loader!./slider-test.tsx";
 
 export const indexjs = `import { render } from "solid-js/web";

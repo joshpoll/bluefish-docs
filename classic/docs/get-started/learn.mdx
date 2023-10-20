@@ -4,7 +4,19 @@ hide_table_of_contents: true
 ---
 
 import { Sandpack, SandpackProvider, SandpackCodeEditor, SandpackPreview } from "@codesandbox/sandpack-react";
-import { app_test, indexjs, indexhtml, planets, learn } from "../code.ts";
+import {
+  app_test,
+  indexjs,
+  indexhtml,
+  planets,
+  planetsNoComments,
+  planetsConditionalAnnotation,
+  planetsMarsAnnotation,
+  planetsAnnotationUnderneath,
+  planetsBackgroundAnnotation,
+  planetsCol,
+  learn,
+} from "../code.ts";
 import { CodeEditor } from "../CodeEditor";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
@@ -191,6 +203,24 @@ Then add a `Distribute`.
   <Ref refId="planets" />
 </Distribute>
 ```
+
+  </Step>
+</Scrolly>
+
+<Scrolly starterCode={planetsNoComments}>
+  <Step>
+
+## Simple Variations
+
+Here are some simple variations on the diagram to test your knowledge. If you want to reveal the
+answer, click "Open Sandbox" on the variation. We've provided the solution to the tutorial above in the sandbox on
+your right.
+
+<CodeEditor code={planetsAnnotationUnderneath} hideCode />
+
+<CodeEditor code={planetsBackgroundAnnotation} hideCode />
+
+<CodeEditor code={planetsMarsAnnotation} hideCode />
 
   </Step>
 </Scrolly>

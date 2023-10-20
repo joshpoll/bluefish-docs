@@ -157,7 +157,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} [REDACTED]. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Josh Pollock. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
