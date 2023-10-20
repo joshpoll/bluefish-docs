@@ -71,22 +71,20 @@ const config = {
             label: "Get Started",
           },
           {
-            type: "docSidebar",
             position: "left",
-            sidebarId: "reference",
-            label: "Reference",
+            href: "https://650dedf849a2dc4910e44cf8-qqijhmmpeq.chromatic.com/?path=/docs/components-align--docs",
+            label: "Component API Reference",
           },
           {
-            type: "docSidebar",
             position: "left",
-            sidebarId: "exampleGallery",
+            href: "https://650dedf849a2dc4910e44cf8-qqijhmmpeq.chromatic.com/?path=/story/example-jetpackcompose--jetpack-compose",
             label: "Examples",
           },
           {
             position: "right",
             type: "html",
             value: `
-            <a href="https://github.com/bluefishjs/rockfish" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <a href="https://github.com/bluefishjs/bluefish" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
               <img src="/img/github-logo.svg" alt="GitHub" style="height: 20px;" />
             </a>
           `,
@@ -152,7 +150,7 @@ const config = {
               // },
               {
                 label: "Star Us on GitHub!",
-                href: "https://github.com/bluefishjs/rockfish",
+                href: "https://github.com/bluefishjs/bluefish",
               },
             ],
           },
