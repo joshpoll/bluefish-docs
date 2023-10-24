@@ -7,6 +7,13 @@ export { default as planetsBackgroundAnnotation } from "!!raw-loader!./planets-v
 export { default as planetsCol } from "!!raw-loader!./planets-variations/planets-col.tsx";
 export { default as planetsAnnotationUnderneath } from "!!raw-loader!./planets-variations/planets-annotation-underneath.tsx";
 export { default as learn } from "!!raw-loader!./learn.tsx";
+export { default as learn1 } from "!!raw-loader!./learn1.tsx";
+export { default as learn2 } from "!!raw-loader!./learn2.tsx";
+export { default as learn3 } from "!!raw-loader!./learn3.tsx";
+export { default as learn4 } from "!!raw-loader!./learn4.tsx";
+export { default as learn5 } from "!!raw-loader!./learn5.tsx";
+export { default as learn6 } from "!!raw-loader!./learn6.tsx";
+export { default as learn7 } from "!!raw-loader!./learn7.tsx";
 export { default as intermediate } from "!!raw-loader!./intermediate.tsx";
 export { default as intermediate2 } from "!!raw-loader!./intermediate2.tsx";
 export { default as intermediate3 } from "!!raw-loader!./intermediate3.tsx";

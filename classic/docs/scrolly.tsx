@@ -10,6 +10,7 @@ export type ScrollyProps = PropsWithChildren<{
 const MemoCodeEditor = memo(CodeEditor);
 
 const Scrolly = ({ starterCode, children }: ScrollyProps) => {
+  const [code, setCode] = useState(starterCode);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   // This callback fires when a Step hits the offset threshold. It receives the
@@ -17,6 +18,16 @@ const Scrolly = ({ starterCode, children }: ScrollyProps) => {
   const onStepEnter = ({ data }) => {
     setCurrentStepIndex(data);
   };
+
+  const childrenWithProps = React.Children.map(children, (child, index) => {
+    // Checking isValidElement is the safe way and avoids a typescript error too.
+    if (React.isValidElement(child)) {
+      return React.cloneElement(child as any, {
+        setCode,
+      });
+    }
+    return child;
+  });
 
   return (
     <div
@@ -29,7 +40,7 @@ const Scrolly = ({ starterCode, children }: ScrollyProps) => {
       {/* Left side with Scrollama steps */}
       <div>
         <Scrollama offset={0.3} onStepEnter={onStepEnter}>
-          {React.Children.map(children, (child, index) => (
+          {React.Children.map(childrenWithProps, (child, index) => (
             <Step data={index} key={index}>
               <div
                 style={{
@@ -57,7 +68,7 @@ const Scrolly = ({ starterCode, children }: ScrollyProps) => {
           height: "100vh",
         }}
       >
-        <MemoCodeEditor code={starterCode} flip />
+        <MemoCodeEditor code={code} flip />
       </div>
     </div>
   );

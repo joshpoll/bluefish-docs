@@ -16,6 +16,13 @@ import {
   planetsBackgroundAnnotation,
   planetsCol,
   learn,
+  learn1,
+  learn2,
+  learn3,
+  learn4,
+  learn5,
+  learn6,
+  learn7,
 } from "../code.ts";
 import { CodeEditor } from "../CodeEditor";
 import Tabs from "@theme/Tabs";
@@ -40,10 +47,11 @@ The planets diagram consists of a row of four circles that represent the first f
 planets. There is box behind them and a label for Mercury. There is also an arrow pointing from the
 label to Mercury.
 
-:::info
+:::note You will learn
 
-The tutorial assumes familiarity with JSX and basic JavaScript.
-If you're not familiar with JSX, you can learn about it: https://react.dev/learn/writing-markup-with-jsx.
+- How to write a Bluefish specification using JSX.
+- How to use common Bluefish elements (like `Circle`) and relations (like `Align`).
+- How to use the `Ref` component to reference other components.
 
 :::
 
@@ -55,8 +63,55 @@ If you're not familiar with JSX, you can learn about it: https://react.dev/learn
 </div>
 <hr />
 
+# Writing Bluefish Specifications with JSX
+
+:::info
+
+**Bluefish's JSX syntax is only available in SolidJS environments.** If you are working in other environments
+like Svelte or Observable, you will instead need to use Bluefish's function syntax.
+
+<!-- See the [function syntax](/docs/function-syntax) page for more information. -->
+
+(This section of the tutorial is based on [React's documentation](https://react.dev/learn).)
+
+:::
+
+To write a Bluefish _specification_ (or _spec_), you typically use _JSX_ syntax. JSX is a syntax extension to JavaScript that lets
+you write HTML-like code in JavaScript. For example, the following is JSX code:
+
+```jsx
+<h1>Hello, world!</h1>
+```
+
+We typically call an element like `h1` a _component_. Components are the building blocks of Bluefish
+specifications.
+
+JSX is stricter than HTML. You have to close tags like `<br />`. Your component also can't return
+multiple JSX tags. You have to wrap them into a shared parent, like a `<div>...</div>` or an empty
+`<>...</>` wrapper:
+
+```jsx
+<>
+  <h1>Hello, world!</h1>
+  <br />
+  <p>This is a paragraph.</p>
+</>
+```
+
+Unlike built-in HTML components, Bluefish components are written with capital letters, like `Circle`
+or `Row`. Bluefish components can only be used within a Bluefish specification, which is scoped by a
+`<Bluefish>` component.
+
+```jsx
+<Bluefish>
+  <Circle cx={20} cy={30} r={15} fill="#EBE3CF" stroke-width={3} stroke="black" />
+</Bluefish>
+```
+
+# Your First Bluefish Diagram
+
 <Scrolly starterCode={learn}>
-  <Step>
+  <Step showMe={learn1}>
 
 ## 1. Make a Circle
 
@@ -69,7 +124,7 @@ Replace the `Text` component in the editor with the code below.
 ```
 
   </Step>
-  <Step>
+  <Step showMe={learn2}>
 
 ### 2. Add the Other Planets
 
@@ -88,7 +143,7 @@ It's hard to make the circles evenly spaced by hand. See if you can do it!
 :::
 
 </Step>
-<Step>
+<Step showMe={learn3}>
 
 ## 3. Put Circles in a Row
 
@@ -96,7 +151,7 @@ Instead of placing the circles manually, we can use a `Row` component to positio
 Add the `Row` component to the diagram and put the `Circle`s inside it.
 
 ```tsx
-<Row spacing={50}>{/* circles go here */}</Row>
+<Row spacing={50}>circles go here</Row>
 ```
 
 Then delete the positions (`cx` and `cy`) on the `Circle`s. For example,
@@ -118,18 +173,18 @@ Try changing the spacing or the size of the circles. What happens?
 :::
 
   </Step>
-  <Step>
+  <Step showMe={learn4}>
 
 ## 4. Add a Background
 
 To add a background, we can wrap the `Row` in a `Background` component.
 
 ```tsx
-<Background padding={20}>{/* row goes here */}</Background>
+<Background padding={20}>row goes here</Background>
 ```
 
   </Step>
-  <Step>
+  <Step showMe={learn5}>
 
 ## 5. Add a Label
 
@@ -144,6 +199,7 @@ first circle in the row, we'll add an `id` prop to it.
 ```
 
 Then we can add a label by making a `Col` with `Text` for the label and a `Ref` to the planet.
+Place this below the `Background` component, but inside the `Bluefish` component.
 
 ```tsx
 <Col spacing={20}>
@@ -153,7 +209,7 @@ Then we can add a label by making a `Col` with `Text` for the label and a `Ref` 
 ```
 
   </Step>
-  <Step>
+  <Step showMe={learn6}>
 
 ## 6. Add an Arrow
 
@@ -173,7 +229,7 @@ Then we'll add an `Arrow` component:
 ```
 
   </Step>
-  <Step>
+  <Step showMe={learn7}>
 
 ## 7. Improve the label spacing.
 
@@ -184,7 +240,7 @@ relative to the planet. We can replace the `Col` component with horizontal `Alig
 First, replace the `Col` component with an `Align`.
 
 ```tsx
-<Align alignment="centerX">{/* Keep the same children as Col */}</Align>
+<Align alignment="centerX">Keep the same children as Col</Align>
 ```
 
 Then we'll name the planets:
@@ -208,7 +264,7 @@ Then add a `Distribute`.
 </Scrolly>
 
 <Scrolly starterCode={planetsNoComments}>
-  <Step>
+  <Step hideShowMe>
 
 ## Simple Variations
 
