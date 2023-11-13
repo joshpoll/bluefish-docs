@@ -1,8 +1,8 @@
 import {
   Bluefish,
   Group,
-  Row,
-  Col,
+  StackH,
+  StackV,
   Circle,
   Text,
   Ref,
@@ -16,23 +16,23 @@ import {
 const App = () => {
   return (
     <Bluefish>
-      <Row spacing={50}>
+      <StackH spacing={50}>
         <Circle r={15} fill="#EBE3CF" stroke-width={3} stroke="black" />
         <Circle r={36} fill="#DC933C" stroke-width={3} stroke="black" />
         <Circle r={38} fill="#179DD7" stroke-width={3} stroke="black" />
-        <Circle id="mars" r={21} fill="#F1CF8E" stroke-width={3} stroke="black" />
-      </Row>
+        <Circle name="mars" r={21} fill="#F1CF8E" stroke-width={3} stroke="black" />
+      </StackH>
       <Align alignment="centerX">
-        <Text id="label">Mars</Text>
-        <Ref refId="mars" />
+        <Text name="label">Mars</Text>
+        <Ref select="mars" />
       </Align>
       <Distribute direction="vertical" spacing={60}>
-        <Ref refId="label" />
-        <Ref refId="mars" />
+        <Ref select="label" />
+        <Ref select="mars" />
       </Distribute>
       <Arrow>
-        <Ref refId="label" />
-        <Ref refId="mars" />
+        <Ref select="label" />
+        <Ref select="mars" />
       </Arrow>
     </Bluefish>
   );

@@ -1,27 +1,27 @@
-import { Bluefish, Group, Row, Circle, Text, Ref, Background, Arrow, Col, Align, Distribute } from "@bluefish-js/solid";
+import { Bluefish, Group, StackH, Circle, Text, Ref, Background, Arrow, StackV, Align, Distribute } from "@bluefish-js/solid";
 
 const App = () => {
   return (
     <Bluefish>
-      <Background id="planets" padding={20}>
-        <Row spacing={50}>
-          <Circle id="mercury" r={15} fill="#EBE3CF" stroke-width={3} stroke="black" />
+      <Background name="planets" padding={20}>
+        <StackH spacing={50}>
+          <Circle name="mercury" r={15} fill="#EBE3CF" stroke-width={3} stroke="black" />
           <Circle r={36} fill="#DC933C" stroke-width={3} stroke="black" />
           <Circle r={38} fill="#179DD7" stroke-width={3} stroke="black" />
           <Circle r={21} fill="#F1CF8E" stroke-width={3} stroke="black" />
-        </Row>
+        </StackH>
       </Background>
       <Align alignment="centerX">
-        <Text id="label">Mercury</Text>
-        <Ref refId="mercury" />
+        <Text name="label">Mercury</Text>
+        <Ref select="mercury" />
       </Align>
       <Distribute direction="vertical" spacing={20}>
-        <Ref refId="label" />
-        <Ref refId="planets" />
+        <Ref select="label" />
+        <Ref select="planets" />
       </Distribute>
       <Arrow>
-        <Ref refId="label" />
-        <Ref refId="mercury" />
+        <Ref select="label" />
+        <Ref select="mercury" />
       </Arrow>
     </Bluefish>
   );

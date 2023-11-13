@@ -145,13 +145,15 @@ It's hard to make the circles evenly spaced by hand. See if you can do it!
 </Step>
 <Step showMe={learn3}>
 
-## 3. Put Circles in a Row
+## 3. Put Circles in a `StackH`
 
-Instead of placing the circles manually, we can use a `Row` component to position them.
-Add the `Row` component to the diagram and put the `Circle`s inside it.
+Instead of placing the circles manually, we can use a `StackH` component to position them.
+`StackH` distributes its children horizontally and aligns them vertically.
+
+Add the `StackH` component to the diagram and put the `Circle`s inside it.
 
 ```tsx
-<Row spacing={50}>circles go here</Row>
+<StackH spacing={50}>circles go here</StackH>
 ```
 
 Then delete the positions (`cx` and `cy`) on the `Circle`s. For example,
@@ -177,10 +179,10 @@ Try changing the spacing or the size of the circles. What happens?
 
 ## 4. Add a Background
 
-To add a background, we can wrap the `Row` in a `Background` component.
+To add a background, we can wrap the `StackH` in a `Background` component.
 
 ```tsx
-<Background padding={20}>row goes here</Background>
+<Background padding={20}>stackH goes here</Background>
 ```
 
   </Step>
@@ -189,23 +191,23 @@ To add a background, we can wrap the `Row` in a `Background` component.
 ## 5. Add a Label
 
 Now it's time to add a label to the Mercury circle. So far, we've been building a hierarchical tree
-of components. But now we need to reference the circle that's in the row in order to position it.
+of components. But now we need to reference the circle that's in the stack in order to position it.
 
-To do so, we'll first _name_ the circle, then we'll _reference_ it later in the code. To name the
-first circle in the row, we'll add an `id` prop to it.
+To do so, we'll first _name_ the circle, then we'll _select_ it later in the code. To name the
+first circle in the row, we'll add a `name` prop to it.
 
 ```tsx
-<Circle id="mercury" ... />
+<Circle name="mercury" ... />
 ```
 
-Then we can add a label by making a `Col` with `Text` for the label and a `Ref` to the planet.
+Then we can add a label by making a `StackV` with `Text` for the label and a `Ref` to the planet.
 Place this below the `Background` component, but inside the `Bluefish` component.
 
 ```tsx
-<Col spacing={20}>
+<StackV spacing={20}>
   <Text>Mercury</Text>
-  <Ref refId="mercury" />
-</Col>
+  <Ref select="mercury" />
+</StackV>
 ```
 
   </Step>
@@ -216,47 +218,48 @@ Place this below the `Background` component, but inside the `Bluefish` component
 Now let's draw an arrow from the label to the planet. To do so, we'll first name the label:
 
 ```tsx
-<Text id="label">Mercury</Text>
+<Text name="label">Mercury</Text>
 ```
 
-Then we'll add an `Arrow` component:
+Then we'll add an `Arrow` component, pointing from the label to the planet. We can place this below
+the `StackV` component, but inside the `Bluefish` component.
 
 ```tsx
 <Arrow>
-  <Ref refId="label" />
-  <Ref refId="mercury" />
+  <Ref select="label" />
+  <Ref select="mercury" />
 </Arrow>
 ```
 
   </Step>
   <Step showMe={learn7}>
 
-## 7. Improve the label spacing.
+## 7. Improve the label spacing
 
 We want the label to always be outside the background box, but right now the label is spaced
-relative to the planet. We can replace the `Col` component with horizontal `Align` and vertical
+relative to the planet. We can replace the `StackV` component with horizontal `Align` and vertical
 `Distribute` to position the label more precisely.
 
-First, replace the `Col` component with an `Align`.
+First, replace the `StackV` component with an `Align`.
 
 ```tsx
-<Align alignment="centerX">Keep the same children as Col</Align>
+<Align alignment="centerX">Keep the same children as StackV</Align>
 ```
 
-Then we'll name the planets:
+Then we'll name the planets earlier in the diagram:
 
 ```tsx
-<Background id="planets" ... >
+<Background name="planets" ... >
   ...
 </Background>
 ```
 
-Then add a `Distribute`.
+Then add a `Distribute`. We can place this below the `Align` and above the `Arrow`:
 
 ```tsx
 <Distribute direction="vertical" spacing={20}>
-  <Ref refId="label" />
-  <Ref refId="planets" />
+  <Ref select="label" />
+  <Ref select="planets" />
 </Distribute>
 ```
 
