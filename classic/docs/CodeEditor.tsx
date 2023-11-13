@@ -39,7 +39,7 @@ export const CodeEditor = (props: CodeEditorProps) => {
   return (
     <SandpackProvider
       dependencies={{
-        "@bluefish-js/solid": "latest",
+        "@bluefish-js/solid": "0.0.14",
         "babel-preset-solid": "latest",
         "solid-js": "latest",
       }}
@@ -67,7 +67,7 @@ export const CodeEditor = (props: CodeEditorProps) => {
               build: "parcel build index.html",
             },
             dependencies: {
-              "@bluefish-js/solid": "latest",
+              "@bluefish-js/solid": "0.0.14",
               "babel-preset-solid": "latest",
               "solid-js": "latest",
             },
