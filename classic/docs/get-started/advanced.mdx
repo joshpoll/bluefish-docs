@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 hide_table_of_contents: true
 ---
 
@@ -26,7 +26,7 @@ import TabItem from "@theme/TabItem";
 import Scrolly from "../scrolly";
 import Step from "../step";
 
-# `For` & `Switch`/`Match`
+# Custom Components
 
 <div
   style={{
@@ -38,21 +38,25 @@ import Step from "../step";
 
 <div>
 
+**TODO: REVISE THE CONTENT HERE!!! I JUST COPIED IT FROM INTERMEDIATE**
+
 :::info
 
 The tutorial assumes you've completed the [Learn Bluefish](/docs/get-started/learn) tutorial.
 
 :::
 
-In this tutorial, we cover how to use loops and conditionals with Bluefish to make more advanced layouts.
-Unlike the components in the beginner tutorial, which were unique to Bluefish, control flow components like `For` and `Switch`
-are provided by SolidJS and work with Bluefish the same way they work with other SolidJS components.
+As your diagrams grow in complexity, you'll want to reuse pieces of your diagram in multiple places.
+For example, you might want to create a reusable component for a planet, and then use that component
+to create a diagram of the solar system. In this tutorial, we'll learn how to create reusable
+components in Bluefish.
 
 :::note You will learn
 
-- How to use SolidJS's `For` component to make a component for each item in an array.
-- How to use `For`'s `index` argument to make unique names for each component.
-- How to use SolidJS's `Switch` and `Match` components to conditionally render components.
+- How to wrap a reusable collection of components into a custom component using `withBluefish`.
+- How to scope names to a component with `createName`.
+- How to pass props to a component to customize its appearance.
+- How to select scoped names with name paths.
 
 :::
 
@@ -72,11 +76,12 @@ are provided by SolidJS and work with Bluefish the same way they work with other
 
 For loops in Bluefish are written with the `For` component. The `For` component takes one prop,
 `each`, which is an array of items to loop over. It also takes one child, which is a function that
-takes an item from the array and returns a component.
+takes an item from the array and returns a component. This component is not provided by Bluefish,
+but rather by SolidJS itself.
 
 ```tsx
 <For each={planets}>
-  {(planet) => <Circle name={planet.name} r={planet.radius} fill={planet.color} stroke-width={3} stroke="black" />}
+  {(planet) => <Circle id={planet.name} r={planet.radius} fill={planet.color} stroke-width={3} stroke="black" />}
 </For>
 ```
 
@@ -86,12 +91,6 @@ takes an item from the array and returns a component.
 
 `For` works like `Array.map`, but it's reactive. If the array changes, the `For` component will
 update only the items that have changed.
-
-:::
-
-:::note
-
-`For` is a SolidJS component, not a Bluefish component. It will work outside of the `<Bluefish>` tag.
 
 :::
 
@@ -106,7 +105,7 @@ remove the border by deleting the `stroke-width` and `stroke` props from the `Ci
 Try using this definition for each planet instead:
 
 ```tsx
-<Circle name={planet.name} r={planet.radius} fill={planet.color} />
+<Circle id={planet.name} r={planet.radius} fill={planet.color} />
 ```
 
 </Step>
@@ -119,16 +118,16 @@ each planet. In the previous tutorial, we used this code to add the Mercury labe
 
 ```tsx
 <Align alignment="centerX">
-  <Text name="label">Mercury</Text>
-  <Ref select="Mercury" />
+  <Text id="label">Mercury</Text>
+  <Ref refId="Mercury" />
 </Align>
 <Distribute direction="vertical" spacing={60}>
-  <Ref select="label" />
-  <Ref select="Mercury" />
+  <Ref refId="label" />
+  <Ref refId="Mercury" />
 </Distribute>
 <Arrow>
-  <Ref select="label" />
-  <Ref select="Mercury" />
+  <Ref refId="label" />
+  <Ref refId="Mercury" />
 </Arrow>
 ```
 
@@ -139,28 +138,28 @@ Let's try using a `For` loop to repeat this code for each planet. Replace the co
   {(planet) => (
     <>
       <Align alignment="centerX">
-        <Text name="label">{planet.name}</Text>
-        <Ref select={planet.name} />
+        <Text id="label">{planet.name}</Text>
+        <Ref refId={planet.name} />
       </Align>
       <Distribute direction="vertical" spacing={60}>
-        <Ref select="label" />
-        <Ref select={planet.name} />
+        <Ref refId="label" />
+        <Ref refId={planet.name} />
       </Distribute>
       <Arrow>
-        <Ref select="label" />
-        <Ref select={planet.name} />
+        <Ref refId="label" />
+        <Ref refId={planet.name} />
       </Arrow>
     </>
   )}
 </For>
 ```
 
-But this code doesn't quite work. The problem is that we've reused the "label" name.
+**Uh oh! Something's not quite right...**
 
   </Step>
   <Step>
 
-## 4. Use `index` to make unique names for each planet.
+## 4. Use `index` to make unique labels.
 
 The problem with the code in the previous step is that we've reused the "label" id. We can fix this
 by using the `index` variable that's passed to the function in the `For` component.
@@ -170,16 +169,16 @@ by using the `index` variable that's passed to the function in the `For` compone
   {(planet, index) => (
     <>
       <Align alignment="centerX">
-        <Text name={`label-${index()}`}>{planet.name}</Text>
-        <Ref select={planet.name} />
+        <Text id={`label-${index()}`}>{planet.name}</Text>
+        <Ref refId={planet.name} />
       </Align>
       <Distribute direction="vertical" spacing={60}>
-        <Ref select={`label-${index()}`} />
-        <Ref select={planet.name} />
+        <Ref refId={`label-${index()}`} />
+        <Ref refId={planet.name} />
       </Distribute>
       <Arrow>
-        <Ref select={`label-${index()}`} />
-        <Ref select={planet.name} />
+        <Ref refId={`label-${index()}`} />
+        <Ref refId={planet.name} />
       </Arrow>
     </>
   )}
@@ -219,8 +218,8 @@ alignment. As with `Row`, `Align` can take multiple children. Let's put all the 
 component:
 
 ```tsx
-<Align name="labels" alignment="centerY">
-  <For each={planets}>{(planet, index) => <Text name={`label-${index()}`}>{planet.name}</Text>}</For>
+<Align id="labels" alignment="centerY">
+  <For each={planets}>{(planet, index) => <Text id={`label-${index()}`}>{planet.name}</Text>}</For>
 </Align>
 ```
 
@@ -230,8 +229,8 @@ planets row "planets" and the labels grouping "labels," so we can refer to those
 
 ```tsx
 <Distribute direction="vertical" spacing={40}>
-  <Ref select="labels" />
-  <Ref select="planets" />
+  <Ref refId="labels" />
+  <Ref refId="planets" />
 </Distribute>
 ```
 
@@ -243,12 +242,12 @@ Finally, let's horizontally align and draw an arrow from each label to its plane
   {(planet, index) => (
     <>
       <Align alignment="centerX">
-        <Ref select={`label-${index()}`} />
-        <Ref select={planet.name} />
+        <Ref refId={`label-${index()}`} />
+        <Ref refId={planet.name} />
       </Align>
       <Arrow>
-        <Ref select={`label-${index()}`} />
-        <Ref select={planet.name} />
+        <Ref refId={`label-${index()}`} />
+        <Ref refId={planet.name} />
       </Arrow>
     </>
   )}
@@ -270,14 +269,14 @@ Replace the `Arrow` component with this:
 <Switch>
   <Match when={planet.radius > 30}>
     <Background>
-      <Ref select={`label-${index()}`} />
-      <Ref select={planet.name} />
+      <Ref refId={`label-${index()}`} />
+      <Ref refId={planet.name} />
     </Background>
   </Match>
   <Match when={true}>
     <Arrow>
-      <Ref select={`label-${index()}`} />
-      <Ref select={planet.name} />
+      <Ref refId={`label-${index()}`} />
+      <Ref refId={planet.name} />
     </Arrow>
   </Match>
 </Switch>

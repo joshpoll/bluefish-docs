@@ -4,9 +4,12 @@ import { indexhtml, indexjs } from "./code";
 
 export type CodeEditorProps = {
   code: string;
-  onCodeChange?: (code: string) => void;
+  supportingCode?: { [filename: string]: string };
+  onCodeChange?: (code: string, filename?: string) => void;
   hideCode?: boolean;
   flip?: boolean;
+  width?: number;
+  height?: number;
 };
 
 const SandpackCustomEditor = (props: CodeEditorProps) => {
@@ -23,11 +26,11 @@ const SandpackCustomEditor = (props: CodeEditorProps) => {
       {props.flip ? (
         <>
           {props.hideCode ? null : <SandpackCodeEditor />}
-          <SandpackPreview style={{ height: 300, width: 500 }} />
+          <SandpackPreview style={{ height: props.height ?? 300, width: props.width ?? 500 }} />
         </>
       ) : (
         <>
-          <SandpackPreview style={{ height: 210, width: 445 }} />
+          <SandpackPreview style={{ height: props.height ?? 210, width: props.width ?? 445 }} />
           {props.hideCode ? null : <SandpackCodeEditor />}
         </>
       )}
@@ -53,6 +56,7 @@ export const CodeEditor = (props: CodeEditorProps) => {
         activeFile: "/App.js",
       }}
       files={{
+        ...props.supportingCode,
         "/App.js": props.code,
         "/index.js": indexjs,
         "/index.html": indexhtml,

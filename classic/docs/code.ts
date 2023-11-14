@@ -18,6 +18,9 @@ export { default as intermediate } from "!!raw-loader!./intermediate.tsx";
 export { default as intermediate2 } from "!!raw-loader!./intermediate2.tsx";
 export { default as intermediate3 } from "!!raw-loader!./intermediate3.tsx";
 export { default as slider } from "!!raw-loader!./slider-test.tsx";
+export { default as tree } from "!!raw-loader!./tree.tsx";
+export { default as tree_node } from "!!raw-loader!./tree-node.tsx";
+export { default as tree_tree } from "!!raw-loader!./tree-tree.tsx";
 
 export const indexjs = `import { render } from "solid-js/web";
 import App from "./App";

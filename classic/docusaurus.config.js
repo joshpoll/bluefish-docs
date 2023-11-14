@@ -57,6 +57,11 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      docs: {
+        sidebar: {
+          hideable: true,
+        },
+      },
       navbar: {
         title: "Bluefish (Alpha)",
         logo: {
@@ -69,6 +74,12 @@ const config = {
             docId: "get-started/run",
             position: "left",
             label: "Get Started",
+          },
+          {
+            type: "doc",
+            docId: "/category/examples",
+            position: "left",
+            label: "Examples",
           },
           {
             position: "left",
