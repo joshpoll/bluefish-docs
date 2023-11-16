@@ -118,12 +118,12 @@ const config = {
                 to: "/docs/get-started/run",
               },
               {
-                label: "Component API Reference",
-                href: "https://650dedf849a2dc4910e44cf8-qqijhmmpeq.chromatic.com/?path=/docs/components-align--docs",
+                label: "Examples",
+                to: "/docs/category/examples",
               },
               {
-                label: "Examples",
-                href: "https://650dedf849a2dc4910e44cf8-qqijhmmpeq.chromatic.com/?path=/story/example-jetpackcompose--jetpack-compose",
+                label: "Component API Reference",
+                to: "/docs/category/components",
               },
             ],
           },
