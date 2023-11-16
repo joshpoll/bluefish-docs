@@ -82,14 +82,10 @@ const config = {
             label: "Examples",
           },
           {
+            type: "doc",
+            docId: "/category/components",
             position: "left",
-            href: "https://650dedf849a2dc4910e44cf8-qqijhmmpeq.chromatic.com/?path=/docs/components-align--docs",
             label: "Component API Reference",
-          },
-          {
-            position: "left",
-            href: "https://650dedf849a2dc4910e44cf8-qqijhmmpeq.chromatic.com/?path=/story/example-jetpackcompose--jetpack-compose",
-            label: "Examples",
           },
           {
             position: "right",
