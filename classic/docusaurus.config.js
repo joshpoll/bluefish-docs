@@ -6,8 +6,8 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "A SolidJS diagramming framework",
-  tagline: "Create beautiful, customizable diagrams with declarative code.",
+  title: "Because your diagrams are worth it",
+  tagline: "Create beautiful, customizable diagrams with declarative code",
   url: "https://bluefishjs.org",
   baseUrl: "/",
   onBrokenLinks: "throw",
